@@ -90,8 +90,42 @@
 }
 
 .calendar-day {
-	place-items: start;
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	gap: 8px;
 	padding: 12px;
+}
+
+.calendar-date {
+	position: relative;
+	z-index: 1;
+	align-self: flex-start;
+	font-size: 16px;
+}
+
+.calendar-todo-input {
+	flex: 1;
+	width: 100%;
+	min-height: 0;
+	padding: 2px 0;
+	border: 0;
+	color: var(--color-text);
+	background: transparent;
+	font: inherit;
+	font-size: 12px;
+	line-height: 1.4;
+	resize: none;
+}
+
+.calendar-todo-input::placeholder {
+	color: #a3aca4;
+	font-size: 11px;
+}
+
+.calendar-todo-input:focus-visible {
+	outline: 1px solid var(--color-brand);
+	outline-offset: 2px;
 }
 
 .calendar-weekday {
@@ -195,6 +229,19 @@
 	.calendar-day.is-today::after {
 		width: 28px;
 		height: 28px;
+	}
+
+	.calendar-day {
+		gap: 5px;
+		padding: 8px;
+	}
+
+	.calendar-date {
+		font-size: 14px;
+	}
+
+	.calendar-todo-input {
+		font-size: 11px;
 	}
 }
 
