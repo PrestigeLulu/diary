@@ -77,7 +77,17 @@
       </aside>
 
       <!-- 오른쪽 캘린더 페이지 본문 영역 -->
-      <main class="page-content" aria-label="캘린더 페이지"></main>
+      <main class="page-content" aria-label="캘린더 페이지">
+        <section class="month-calendar" aria-labelledby="calendar-month">
+          <header class="calendar-header">
+            <button class="calendar-nav" id="previous-month" type="button" aria-label="이전 달">&#x2039;</button>
+            <h1 id="calendar-month" class="calendar-month" aria-live="polite"></h1>
+            <button class="calendar-nav" id="next-month" type="button" aria-label="다음 달">&#x203A;</button>
+          </header>
+          <div class="calendar-weekdays" aria-hidden="true"></div>
+          <div class="calendar-days"></div>
+        </section>
+      </main>
     </div>
     <script src="./js/calendar.js"></script>
   </body>
