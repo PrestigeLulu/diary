@@ -1,0 +1,81 @@
+.schedule-main {
+  width: 100%;
+  display: flex;
+  position: absolute;
+  left: 280px;
+  top: 40px;
+  bottom: 0;
+}
+
+.schedule-box1 {
+  gap: 8px;
+  border: 1px solid gray;
+  border-radius: 10px;
+  width: auto;
+  height: 40px;
+  display: flex;
+  position: absolute;
+    left: 280px;
+    top: 150px;
+  padding: 5px 15px;
+  background-color: #ffffff;
+}
+
+.schedule-box2 {
+  gap: 8px;
+  border: 1px solid gray;
+  border-radius: 10px;
+  width: auto;
+  height: 40px;
+  display: flex;
+  position: absolute;
+    left: 480px;
+    top: 150px;
+  padding: 5px 15px;
+  background-color: #ffffff;
+}
+
+.gap{
+  gap: 12px;
+}
+
+.schedule-add {
+  gap: 8px;
+  background-color: #3f6847;
+  color: #ffffff;
+  padding: 7px 15px;
+  position: absolute;
+    right: 100px;
+    top: 50px;
+  width: auto;
+  height: 40px;
+  display: flex;
+  border-radius: 10px;
+}
+
+.box-icon {
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+  padding-top: 5px;
+}
+
+.schedule-list {
+  width: 1030px;
+  height: auto;
+  border: 1px solid #7a847c;
+  border-radius: 15px;
+  position: absolute;
+    top: 250px;
+    left: 280px;
+  background-color: #d2e5d6;
+}
+
+.schedule-list-box {
+  width: auto;
+  height: 100px;
+  border: auto #7a847c;
+  background-color: #ffffff;
+}
