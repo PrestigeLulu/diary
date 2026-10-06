@@ -1,14 +1,229 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Diary - Settings</title>
-  <link rel="stylesheet" href="./css/reset.css">
-  <link rel="stylesheet" href="./css/common.css">
-  <link rel="stylesheet" href="./css/settings.css">
-</head>
-<body>
-  <script src="./js/settings.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>다이어리 - 설정</title>
+    <link rel="stylesheet" href="./css/common.css" />
+    <link rel="stylesheet" href="./css/settings.css" />
+  </head>
+  <body>
+    <div class="app-layout">
+      <aside class="sidebar" aria-label="주요 메뉴">
+        <a class="sidebar-brand" href="./index.html" aria-label="홈">
+          <span class="brand-icon"
+            ><img src="./assets/images/book-open.svg" alt=""
+          /></span>
+          <span class="brand-name">다이어리</span>
+        </a>
+
+        <nav class="sidebar-nav" aria-label="페이지 이동">
+          <a class="sidebar-link" href="./index.html">
+            <img
+              class="sidebar-icon"
+              src="./assets/images/calendar.svg"
+              alt=""
+            />
+            <span>캘린더</span>
+          </a>
+          <a class="sidebar-link" href="./schedule.html">
+            <img
+              class="sidebar-icon"
+              src="./assets/images/calendar.svg"
+              alt=""
+            />
+            <span>일정</span>
+          </a>
+          <a class="sidebar-link" href="./todo.html">
+            <img
+              class="sidebar-icon"
+              src="./assets/images/check-circle.svg"
+              alt=""
+            />
+            <span>할 일</span>
+          </a>
+          <a
+            class="sidebar-link is-active"
+            href="./settings.html"
+            aria-current="page"
+          >
+            <img
+              class="sidebar-icon"
+              src="./assets/images/settings.svg"
+              alt=""
+            />
+            <span>설정</span>
+          </a>
+        </nav>
+
+        <div class="sidebar-profile">
+          <span class="profile-avatar" aria-hidden="true"></span>
+          <div>
+            <strong>김하루</strong>
+            <span>haru@email.com</span>
+          </div>
+        </div>
+      </aside>
+
+      <main class="settings-page">
+        <header class="page-header">
+          <h1>마이페이지 / 설정</h1>
+          <p>나만의 다이어리 환경을 편안하게 설정해 보세요.</p>
+        </header>
+
+        <div class="settings-grid">
+          <div class="settings-left">
+            <section class="card profile-card" aria-labelledby="profile-title">
+              <div class="profile-large" aria-hidden="true">KM</div>
+              <div class="profile-info">
+                <h2 id="profile-title">김민규</h2>
+                <p>mingyu@gmail.com</p>
+                <span>2024년 10월부터 기록 중</span>
+              </div>
+              <button class="outline-button" type="button">
+                <span aria-hidden="true">✎</span> 프로필 수정
+              </button>
+            </section>
+
+            <section
+              class="card category-card"
+              aria-labelledby="category-title"
+            >
+              <div class="section-title-row">
+                <div>
+                  <h2 id="category-title">일정 카테고리</h2>
+                  <p>색상과 이름을 편집해 일정을 구분하세요.</p>
+                </div>
+                <button class="soft-button" type="button">
+                  <span aria-hidden="true">＋</span> 카테고리 추가
+                </button>
+              </div>
+
+              <ul class="category-list">
+                <li>
+                  <span class="category-dot green"></span><strong>개인</strong>
+                  <span class="category-count">12개 일정</span>
+                  <button
+                    class="icon-button"
+                    type="button"
+                    aria-label="개인 카테고리 수정"
+                  >
+                    ✎
+                  </button>
+                  <button
+                    class="icon-button delete"
+                    type="button"
+                    aria-label="개인 카테고리 삭제"
+                  >
+                    ×
+                  </button>
+                </li>
+                <li>
+                  <span class="category-dot orange"></span><strong>업무</strong>
+                  <span class="category-count">8개 일정</span>
+                  <button
+                    class="icon-button"
+                    type="button"
+                    aria-label="업무 카테고리 수정"
+                  >
+                    ✎
+                  </button>
+                  <button
+                    class="icon-button delete"
+                    type="button"
+                    aria-label="업무 카테고리 삭제"
+                  >
+                    ×
+                  </button>
+                </li>
+                <li>
+                  <span class="category-dot purple"></span><strong>약속</strong>
+                  <span class="category-count">5개 일정</span>
+                  <button
+                    class="icon-button"
+                    type="button"
+                    aria-label="약속 카테고리 수정"
+                  >
+                    ✎
+                  </button>
+                  <button
+                    class="icon-button delete"
+                    type="button"
+                    aria-label="약속 카테고리 삭제"
+                  >
+                    ×
+                  </button>
+                </li>
+              </ul>
+            </section>
+          </div>
+
+          <div class="settings-right">
+            <section class="card theme-card" aria-labelledby="theme-title">
+              <h2 id="theme-title">테마 설정</h2>
+              <div class="theme-options">
+                <label class="theme-option">
+                  <input type="radio" name="theme" checked />
+                  <span class="theme-preview light"></span>
+                  <span class="theme-name">라이트</span>
+                  <span class="theme-check" aria-hidden="true">✓</span>
+                </label>
+                <label class="theme-option">
+                  <input type="radio" name="theme" />
+                  <span class="theme-preview dark"></span>
+                  <span class="theme-name">다크</span>
+                  <span class="theme-check" aria-hidden="true">✓</span>
+                </label>
+              </div>
+            </section>
+
+            <section
+              class="card notification-card"
+              aria-labelledby="notification-title"
+            >
+              <div class="notification-heading">
+                <h2 id="notification-title">알림 설정</h2>
+                <p>중요한 일정을 놓치지 않도록 알려드려요.</p>
+              </div>
+
+              <div class="notification-row">
+                <div>
+                  <strong>일정 시작 알림</strong>
+                  <p>일정 10분 전에 알림을 받아요.</p>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" checked /><span
+                    aria-hidden="true"
+                  ></span>
+                  <span class="sr-only">일정 시작 알림 사용</span>
+                </label>
+              </div>
+              <div class="notification-row">
+                <div>
+                  <strong>할 일 마감 알림</strong>
+                  <p>마감일 오전 9시에 알려드려요.</p>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" checked /><span
+                    aria-hidden="true"
+                  ></span>
+                  <span class="sr-only">할 일 마감 알림 사용</span>
+                </label>
+              </div>
+              <div class="notification-row">
+                <div>
+                  <strong>주간 다이어리 요약</strong>
+                  <p>매주 일요일 저녁에 한 주를 정리해요.</p>
+                </div>
+                <label class="switch">
+                  <input type="checkbox" /><span aria-hidden="true"></span>
+                  <span class="sr-only">주간 다이어리 요약 사용</span>
+                </label>
+              </div>
+            </section>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
 </html>
