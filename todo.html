@@ -1,14 +1,74 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Diary - Todo</title>
-  <link rel="stylesheet" href="./css/reset.css">
-  <link rel="stylesheet" href="./css/common.css">
-  <link rel="stylesheet" href="./css/todo.css">
-</head>
-<body>
-  <script src="./js/todo.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Diary - Todo</title>
+    <link rel="stylesheet" href="./css/common.css" />
+    <link rel="stylesheet" href="./css/todo.css" />
+  </head>
+  <body>
+    <script src="./js/main.js"></script>
+    <script src="./js/todo.js"></script>
+    <div class="app-layout">
+      <aside class="sidebar" aria-label="주요 메뉴">
+        <a class="sidebar-brand" href="./index.html" aria-label="홈">
+          <span class="brand-icon"
+            ><img src="./assets/images/book-open.svg" alt=""
+          /></span>
+          <span class="brand-name">다이어리</span>
+        </a>
+
+        <nav class="sidebar-nav" aria-label="페이지 이동">
+          <a class="sidebar-link" href="./index.html">
+            <img
+              class="sidebar-icon"
+              src="./assets/images/calendar.svg"
+              alt=""
+            />
+            <span>캘린더</span>
+          </a>
+          <a class="sidebar-link" href="./schedule.html">
+            <img
+              class="sidebar-icon"
+              src="./assets/images/calendar.svg"
+              alt=""
+            />
+            <span>일정</span>
+          </a>
+          <a class="sidebar-link is-active" href="./todo.html">
+            <img
+              class="sidebar-icon"
+              src="./assets/images/check-circle.svg"
+              alt=""
+            />
+            <span>할 일</span>
+          </a>
+          <a class="sidebar-link" href="./settings.html" aria-current="page">
+            <img
+              class="sidebar-icon"
+              src="./assets/images/settings.svg"
+              alt=""
+            />
+            <span>설정</span>
+          </a>
+        </nav>
+
+        <div class="sidebar-profile">
+          <span class="profile-avatar" aria-hidden="true"></span>
+          <div>
+            <strong id="my-name"></strong>
+            <span id="my-email"></span>
+          </div>
+        </div>
+      </aside>
+
+      <main class="todo-page">
+        <header class="page-header">
+          <h1>마이페이지 / 설정</h1>
+          <p>나만의 다이어리 환경을 편안하게 설정해 보세요.</p>
+        </header>
+      </main>
+    </div>
+  </body>
 </html>

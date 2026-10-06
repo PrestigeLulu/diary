@@ -11,6 +11,10 @@
   --color-muted: #7a847c;
   --color-active-bg: #ffffff;
   --color-profile-bg: #ffe1d3;
+
+  --page-bg: #f7f8f4;
+  --card-border: #e5e8e1;
+  --soft-green: #e0ebe1;
 }
 
 body {

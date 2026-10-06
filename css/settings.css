@@ -1,24 +1,5 @@
-:root {
-  --settings-bg: #f7f8f4;
-  --card-border: #e5e8e1;
-  --soft-green: #e0ebe1;
-  --main-green: #78917d;
-}
-
 body {
-  background: var(--settings-bg);
-}
-
-.app-layout {
-  height: 100vh;
-  min-height: 0;
-  overflow: hidden;
-}
-
-.sidebar {
-  height: 100vh;
-  min-height: 0;
-  flex: 0 0 240px;
+  background: var(--page-bg);
 }
 
 button,
@@ -37,7 +18,7 @@ button {
   height: 100vh;
   padding: 32px 40px;
   overflow-y: auto;
-  background: var(--settings-bg);
+  background: var(--page-bg);
 }
 
 .page-header {
@@ -274,7 +255,7 @@ button {
 }
 
 .theme-option:has(input:checked) {
-  border-color: var(--main-green);
+  border-color: var(--color-brand);
 }
 
 .theme-option input,
@@ -310,9 +291,9 @@ button {
   float: right;
   width: 20px;
   height: 20px;
-  border: 2px solid var(--main-green);
+  border: 2px solid var(--color-brand);
   border-radius: 50%;
-  color: var(--main-green);
+  color: var(--color-brand);
   text-align: center;
   line-height: 16px;
 }
@@ -374,7 +355,7 @@ button {
 }
 
 .switch input:checked + span {
-  background: var(--main-green);
+  background: var(--color-brand);
 }
 
 .switch input:checked + span::after {

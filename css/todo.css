@@ -1,1 +1,8 @@
-
+.todo-page {
+  flex: 1;
+  min-width: 0;
+  height: 100vh;
+  padding: 32px 40px;
+  overflow-y: auto;
+  background: var(--page-bg);
+}

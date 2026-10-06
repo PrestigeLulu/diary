@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="./css/settings.css" />
   </head>
   <body>
+    <script src="./js/main.js"></script>
+    <script src="./js/settings.js"></script>
     <div class="app-layout">
       <aside class="sidebar" aria-label="주요 메뉴">
         <a class="sidebar-brand" href="./index.html" aria-label="홈">
@@ -59,8 +61,8 @@
         <div class="sidebar-profile">
           <span class="profile-avatar" aria-hidden="true"></span>
           <div>
-            <strong>김하루</strong>
-            <span>haru@email.com</span>
+            <strong id="my-name"></strong>
+            <span id="my-email"></span>
           </div>
         </div>
       </aside>
@@ -76,9 +78,9 @@
             <section class="card profile-card" aria-labelledby="profile-title">
               <div class="profile-large" aria-hidden="true">KM</div>
               <div class="profile-info">
-                <h2 id="profile-title">김민규</h2>
-                <p>mingyu@gmail.com</p>
-                <span>2024년 10월부터 기록 중</span>
+                <h2 id="profile-title"></h2>
+                <p id="profile-email"></p>
+                <span id="created-at"></span>
               </div>
               <button class="outline-button" type="button">
                 <span aria-hidden="true">✎</span> 프로필 수정
