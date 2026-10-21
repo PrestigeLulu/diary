@@ -1,27 +1,26 @@
+
 * {
-  padding: 0;
   margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
 :root {
-  --color-sidebar-bg: #eef2eb;
-  --color-brand: #78917d;
-  --color-text: #263129;
-  --color-muted: #7a847c;
-  --color-active-bg: #ffffff;
-  --color-profile-bg: #ffe1d3;
-
-  --page-bg: #f7f8f4;
-  --card-border: #e5e8e1;
-  --soft-green: #e0ebe1;
+  --bg: #F6F7F2;
+  --sidebar: #EEF1E9;
+  --card: #FFFFFF;
+  --text: #263129;
+  --text-muted: #7A847C;
+  --primary: #78917D;
+  --primary-light: #DDE8DE;
+  --border: #D0D3D0;
 }
 
 body {
   min-height: 100vh;
-  color: var(--color-text);
-  font-family: Arial, "Noto Sans KR", sans-serif;
-  background: #ffffff;
+  font-family: Arial, sans-serif;
+  color: var(--text);
+  background: var(--bg);
 }
 
 a {
@@ -29,38 +28,39 @@ a {
   text-decoration: none;
 }
 
+/* 전체 배치 */
+
 .app-layout {
-  min-height: 100vh;
   display: flex;
+  min-height: 100vh;
 }
+
+/* 사이드바 */
 
 .sidebar {
   width: 240px;
   min-height: 100vh;
+  padding: 40px 24px 32px;
+  background: var(--sidebar);
   display: flex;
   flex-direction: column;
-  padding: 40px 24px 32px;
-  background: var(--color-sidebar-bg);
 }
 
 .sidebar-brand {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: 12px;
-  width: fit-content;
   margin-bottom: 36px;
 }
 
 .brand-icon {
   width: 34px;
   height: 34px;
-  display: inline-flex;
+  background: var(--primary);
+  border-radius: 10px;
+  display: flex;
   align-items: center;
   justify-content: center;
-  flex: 0 0 auto;
-  border-radius: 10px;
-  color: #ffffff;
-  background: var(--color-brand);
 }
 
 .brand-icon img {
@@ -70,9 +70,10 @@ a {
 
 .brand-name {
   font-size: 21px;
-  font-weight: 700;
-  letter-spacing: 0;
+  font-weight: bold;
 }
+
+/* 메뉴 */
 
 .sidebar-nav {
   display: flex;
@@ -81,33 +82,32 @@ a {
 }
 
 .sidebar-link {
-  min-height: 48px;
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 0 14px;
+  padding: 14px;
   border-radius: 10px;
-  color: var(--color-muted);
+  color: var(--text-muted);
   font-size: 15px;
-  font-weight: 600;
+  font-weight: bold;
 }
 
-.sidebar-link:hover,
-.sidebar-link:focus-visible {
-  background: rgba(255, 255, 255, 0.72);
-  outline: none;
+.sidebar-link:hover {
+  background: white;
 }
 
-.sidebar-link.is-active {
-  color: var(--color-text);
-  background: var(--color-active-bg);
+.sidebar-link.is-active,
+.sidebar-link.active {
+  background: white;
+  color: var(--text);
 }
 
 .sidebar-icon {
   width: 20px;
   height: 20px;
-  flex: 0 0 auto;
 }
+
+/* 프로필 */
 
 .sidebar-profile {
   display: flex;
@@ -119,9 +119,8 @@ a {
 .profile-avatar {
   width: 36px;
   height: 36px;
-  flex: 0 0 auto;
   border-radius: 50%;
-  background: var(--color-profile-bg);
+  background: var(--primary-light);
 }
 
 .sidebar-profile strong,
@@ -130,17 +129,61 @@ a {
 }
 
 .sidebar-profile strong {
-  margin-bottom: 4px;
   font-size: 13px;
-  font-weight: 700;
+  margin-bottom: 4px;
 }
 
 .sidebar-profile span {
-  color: var(--color-muted);
+  color: var(--text-muted);
   font-size: 12px;
 }
 
-.page-content {
-  flex: 1;
-  min-width: 0;
+[data-theme="dark"] {
+  --bg: #020617;
+  --sidebar: #0F172A;
+  --card: #1E293B;
+  --text: #F8FAFC;
+  --text-muted: #94A3B8;
+  --primary: #10B981;
+  --primary-light: #064E3B;
+  --border: #334155;
+}
+
+[data-theme="dark"] .sidebar-link:hover {
+  background: #1E293B;
+  color: #10B981;
+}
+
+/* 다크 모드에서만 적용 */
+[data-theme="dark"] .sidebar-link.is-active {
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+[data-theme="dark"] .outline-button {
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+[data-theme="dark"] .soft-button {
+  background: var(--primary-light);
+  color: var(--primary);
+}
+
+[data-theme="dark"] .icon-button {
+  color: var(--text);
+}
+
+[data-theme="dark"] .icon-button.delete {
+  color: #FB7185;
+}
+
+[data-theme="dark"] .sidebar-icon {
+  filter: brightness(0) invert(1);
+  opacity: 0.75;
+}
+
+[data-theme="dark"] .theme-preview.dark {
+  background: #0F172A;
 }

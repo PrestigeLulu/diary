@@ -1,74 +1,144 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Diary - Todo</title>
-    <link rel="stylesheet" href="./css/common.css" />
-    <link rel="stylesheet" href="./css/todo.css" />
-  </head>
-  <body>
-    <script src="./js/main.js"></script>
-    <script src="./js/todo.js"></script>
-    <div class="app-layout">
-      <aside class="sidebar" aria-label="주요 메뉴">
-        <a class="sidebar-brand" href="./index.html" aria-label="홈">
-          <span class="brand-icon"
-            ><img src="./assets/images/book-open.svg" alt=""
-          /></span>
-          <span class="brand-name">다이어리</span>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>하루결 - 할 일</title>
+  <link rel="stylesheet" href="./css/common.css">
+  <link rel="stylesheet" href="./css/todo.css">
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <a class="sidebar-brand" href="./index.html">
+        <span class="brand-icon">
+          <img src="./assets/images/book-open.svg" alt="">
+        </span>
+        <span class="brand-name">하루결</span>
+      </a>
+      <nav class="sidebar-nav">
+        <a class="sidebar-link" href="./index.html">
+          <img class="sidebar-icon" src="./assets/images/calendar.svg" alt="">
+          <span>캘린더</span>
         </a>
-
-        <nav class="sidebar-nav" aria-label="페이지 이동">
-          <a class="sidebar-link" href="./index.html">
-            <img
-              class="sidebar-icon"
-              src="./assets/images/calendar.svg"
-              alt=""
-            />
-            <span>캘린더</span>
-          </a>
-          <a class="sidebar-link" href="./schedule.html">
-            <img
-              class="sidebar-icon"
-              src="./assets/images/calendar.svg"
-              alt=""
-            />
-            <span>일정</span>
-          </a>
-          <a class="sidebar-link is-active" href="./todo.html">
-            <img
-              class="sidebar-icon"
-              src="./assets/images/check-circle.svg"
-              alt=""
-            />
-            <span>할 일</span>
-          </a>
-          <a class="sidebar-link" href="./settings.html" aria-current="page">
-            <img
-              class="sidebar-icon"
-              src="./assets/images/settings.svg"
-              alt=""
-            />
-            <span>설정</span>
-          </a>
-        </nav>
-
-        <div class="sidebar-profile">
-          <span class="profile-avatar" aria-hidden="true"></span>
-          <div>
-            <strong id="my-name"></strong>
-            <span id="my-email"></span>
-          </div>
+        <a class="sidebar-link" href="./schedule.html">
+          <img class="sidebar-icon" src="./assets/images/calendar.svg" alt="">
+          <span>일정</span>
+        </a>
+        <a class="sidebar-link is-active" href="./todo.html">
+          <img class="sidebar-icon" src="./assets/images/check-circle.svg" alt="">
+          <span>할 일</span>
+        </a>
+        <a class="sidebar-link" href="./settings.html">
+          <img class="sidebar-icon" src="./assets/images/settings.svg" alt="">
+          <span>설정</span>
+        </a>
+      </nav>
+      <div class="sidebar-profile">
+        <span class="profile-avatar"></span>
+        <div>
+          <strong id="my-name"></strong>
+          <span id="my-stuid"></span>
         </div>
-      </aside>
+      </div>
+    </aside>
 
-      <main class="todo-page">
-        <header class="page-header">
-          <h1>마이페이지 / 설정</h1>
-          <p>나만의 다이어리 환경을 편안하게 설정해 보세요.</p>
-        </header>
-      </main>
-    </div>
-  </body>
+    <main class="todo-page">
+      <header class="todo-header">
+        <div>
+          <h1>나의 체크리스트</h1>
+          <p>작은 계획을 하나씩 완료하며 오늘을 가볍게 정리해요.</p>
+        </div>
+        <button class="add-button" id="add-todo" type="button">
+          ＋ 새 할 일
+        </button>
+      </header>
+
+      <div class="todo-stats">
+        <div class="stat">
+          <span>전체</span>
+          <strong id="total-count">6</strong>
+        </div>
+        <div class="stat">
+          <span>미완료</span>
+          <strong id="active-count">4</strong>
+        </div>
+        <div class="stat">
+          <span>완료</span>
+          <strong id="completed-count">2</strong>
+        </div>
+        <p id="today-count">오늘 2개 완료</p>
+      </div>
+
+      <section class="todo-section">
+        <h2>해야 할 일 <span id="active-title-count">4</span></h2>
+        <ul class="todo-list" id="active-list">
+          <li class="todo-item">
+            <input type="checkbox">
+            <div class="todo-info">
+              <strong>프로젝트 제안서 최종 검토</strong>
+              <p>디자인 시안과 예상 일정 다시 확인하기</p>
+            </div>
+            <span class="todo-date">오늘 · 오후 5:00</span>
+            <span class="priority high">높음</span>
+          </li>
+          <li class="todo-item">
+            <input type="checkbox">
+            <div class="todo-info">
+              <strong>치과 정기 검진 예약</strong>
+              <p>회사 근처 병원으로 예약</p>
+            </div>
+            <span class="todo-date">9월 11일</span>
+            <span class="priority medium">보통</span>
+          </li>
+          <li class="todo-item">
+            <input type="checkbox">
+            <div class="todo-info">
+              <strong>읽던 책 3장 마무리</strong>
+              <p>저녁 루틴 · 30분</p>
+            </div>
+            <span class="todo-date">9월 12일</span>
+            <span class="priority low">낮음</span>
+          </li>
+          <li class="todo-item">
+            <input type="checkbox">
+            <div class="todo-info">
+              <strong>이번 주 장보기 목록 정리</strong>
+              <p>우유, 사과, 파스타, 세제</p>
+            </div>
+            <span class="todo-date">9월 13일</span>
+            <span class="priority medium">보통</span>
+          </li>
+        </ul>
+      </section>
+
+      <section class="todo-section">
+        <h2>완료한 일</h2>
+        <ul class="todo-list" id="completed-list">
+          <li class="todo-item completed">
+            <input type="checkbox" checked>
+            <div class="todo-info">
+              <strong>부모님께 안부 전화</strong>
+              <p>주말 일정 이야기하기</p>
+            </div>
+            <span class="todo-date">9월 8일 완료</span>
+            <span class="priority medium">보통</span>
+          </li>
+          <li class="todo-item completed">
+            <input type="checkbox" checked>
+            <div class="todo-info">
+              <strong>여행 사진 백업</strong>
+              <p>클라우드 앨범 분류까지</p>
+            </div>
+            <span class="todo-date">9월 7일 완료</span>
+            <span class="priority low">낮음</span>
+          </li>
+        </ul>
+      </section>
+    </main>
+  </div>
+  <script src="./js/main.js"></script>
+  <script src="./js/todo.js"></script>
+</body>
 </html>
