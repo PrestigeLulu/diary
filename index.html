@@ -9,72 +9,41 @@
   </head>
   <body>
     <div class="app-layout">
-      <!-- 왼쪽 사이드바 전체 영역 -->
-      <aside class="sidebar" aria-label="주요 메뉴">
-        <!-- 로고 / 서비스 이름 로고 클릭시 index.html로 이동-->
-        <a class="sidebar-brand" href="./index.html" aria-label="홈">
-          <span class="brand-icon">
-            <img src="./assets/images/book-open.svg" alt="" />
-          </span>
-          <span class="brand-name">다이어리</span>
+      <aside class="sidebar">
+      <a class="sidebar-brand" href="./index.html">
+        <span class="brand-icon">
+          <img src="./assets/images/book-open.svg" alt="">
+        </span>
+        <span class="brand-name">다이어리</span>
+      </a>
+
+      <nav class="sidebar-nav">
+        <a class="sidebar-link is-active" href="./index.html">
+          <img class="sidebar-icon" src="./assets/images/calendar.svg" alt="">
+          <span>캘린더</span>
         </a>
+        <a class="sidebar-link" href="./schedule.html">
+          <img class="sidebar-icon" src="./assets/images/calendar.svg" alt="">
+          <span>일정</span>
+        </a>
+        <a class="sidebar-link" href="./todo.html">
+          <img class="sidebar-icon" src="./assets/images/check-circle.svg" alt="">
+          <span>할 일</span>
+        </a>
+        <a class="sidebar-link" href="./settings.html">
+          <img class="sidebar-icon" src="./assets/images/settings.svg" alt="">
+          <span>설정</span>
+        </a>
+      </nav>
 
-        <!-- 페이지 이동 메뉴 -->
-        <nav class="sidebar-nav" aria-label="페이지 이동">
-          <!-- 현재 페이지: 캘린더 -->
-          <a
-            class="sidebar-link is-active"
-            href="./index.html"
-            aria-current="page"
-          >
-            <img
-              class="sidebar-icon"
-              src="./assets/images/calendar.svg"
-              alt=""
-            />
-            <span>캘린더</span>
-          </a>
-
-          <!-- 일정 페이지로 이동 -->
-          <a class="sidebar-link" href="./schedule.html">
-            <img
-              class="sidebar-icon"
-              src="./assets/images/calendar.svg"
-              alt=""
-            />
-            <span>일정</span>
-          </a>
-
-          <!-- 할 일 페이지로 이동 -->
-          <a class="sidebar-link" href="./todo.html">
-            <img
-              class="sidebar-icon"
-              src="./assets/images/check-circle.svg"
-              alt=""
-            />
-            <span>할 일</span>
-          </a>
-
-          <!-- 설정 페이지로 이동 -->
-          <a class="sidebar-link" href="./settings.html">
-            <img
-              class="sidebar-icon"
-              src="./assets/images/settings.svg"
-              alt=""
-            />
-            <span>설정</span>
-          </a>
-        </nav>
-
-        <!-- 사용자 프로필 영역 -->
-        <div class="sidebar-profile">
-          <span class="profile-avatar" aria-hidden="true"></span>
-          <div>
-            <strong>성명</strong>
-            <span>학번</span>
-          </div>
+      <div class="sidebar-profile">
+        <span class="profile-avatar"></span>
+        <div>
+          <strong id="my-name"></strong>
+          <span id="my-stuid"></span>
         </div>
-      </aside>
+      </div>
+    </aside>
 
       <!-- 오른쪽 캘린더 페이지 본문 영역 -->
       <main class="page-content" aria-label="캘린더 페이지">
