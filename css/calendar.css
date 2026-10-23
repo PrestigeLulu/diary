@@ -163,13 +163,13 @@
 /* 일요일 글자색 */
 .calendar-weekday.is-sunday,
 .calendar-day.is-sunday {
-	color: #d94c4c;
+	color: var(--calendar-sunday);
 }
 
 /* 토요일 글자색 */
 .calendar-weekday.is-saturday,
 .calendar-day.is-saturday {
-	color: #3976c5;
+	color: var(--calendar-saturday);
 }
 
 /* 오늘 날짜 강조와 원형 표시의 위치 기준 */
@@ -306,7 +306,7 @@
 .deadline-info strong { display: block; font-size: 14px; overflow-wrap: anywhere; }
 .deadline-info small { display: block; margin-top: 5px; color: var(--text-muted); }
 .deadline-badge { flex-shrink: 0; padding: 6px 8px; border-radius: 6px; background: var(--primary-light); font-size: 12px; font-weight: bold; }
-.deadline-badge.is-urgent { background: #FCE7DF; color: #9B3825; }
+.deadline-badge.is-urgent { background: var(--deadline-urgent-bg); color: var(--deadline-urgent-text); }
 .deadline-empty { color: var(--text-muted); font-size: 13px; }
 
 /* 달력 크기를 유지한 채 겹쳐 올라오는 하단 패널 */
@@ -387,3 +387,21 @@
 }
 /* 달력 입력의 자동 저장 상태 */
 .calendar-save-status { flex-shrink: 0; margin-bottom: 6px; color: var(--text-muted); font-size: 12px; line-height: 1.4; }
+
+/* 공통 테마의 배경과 어울리는 주말·마감 강조색 */
+:root {
+  --calendar-sunday: #D94C4C;
+  --calendar-saturday: #3976C5;
+  --deadline-urgent-bg: #FCE7DF;
+  --deadline-urgent-text: #9B3825;
+}
+[data-theme="dark"] {
+  --calendar-sunday: #FDA4AF;
+  --calendar-saturday: #93C5FD;
+  --deadline-urgent-bg: #4C222A;
+  --deadline-urgent-text: #FECDD3;
+}
+/* 공휴일은 빨간색, 토요일은 공휴일과 겹쳐도 파란색으로 표시 */
+.calendar-day.is-holiday .calendar-date { color: var(--calendar-sunday); }
+
+.calendar-day.is-saturday .calendar-date { color: var(--calendar-saturday); }
