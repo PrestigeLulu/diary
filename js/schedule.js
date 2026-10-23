@@ -1,5 +1,3 @@
-import { getSchedules, saveSchedules } from "./storage.js";
-
 const rows = document.querySelector(".scheduleRows");
 const countEl = document.querySelector(".scheduleCount");
 
