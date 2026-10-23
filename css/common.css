@@ -167,8 +167,7 @@ a {
 }
 
 [data-theme="dark"] .soft-button {
-  background: var(--primary-light);
-  color: var(--primary);
+  background: var(--primary);
 }
 
 [data-theme="dark"] .icon-button {
