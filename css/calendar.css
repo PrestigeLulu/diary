@@ -1,11 +1,16 @@
 
+/* 페이지 콘텐츠 정렬과 공통 배경색 */
 .page-content {
 	display: flex;
+	flex: 1;
+	min-width: 0;
+	flex-direction: column;
 	justify-content: center;
-	align-items: center;
 	padding: 16px 24px;
+	background: var(--bg);
 }
 
+/* 월간 달력의 전체 크기와 세로 배치 */
 .month-calendar {
 	display: flex;
 	flex-direction: column;
@@ -15,6 +20,7 @@
 	background: transparent;
 }
 
+/* 이전 버튼, 월 제목, 다음 버튼 배치 */
 .calendar-header {
 	display: grid;
 	grid-template-columns: 48px 1fr 48px;
@@ -22,73 +28,85 @@
 	margin-bottom: 24px;
 }
 
+/* 이전 달 / 다음 달 이동 버튼 */
 .calendar-nav {
 	width: 48px;
 	height: 48px;
-	border: 1px solid #e4e9e4;
+	border: 1px solid var(--border);
 	border-radius: 8px;
-	color: var(--color-text);
-	background: #ffffff;
+	color: var(--text);
+	background: var(--card);
 	font: inherit;
 	font-size: 30px;
 	line-height: 1;
 	cursor: pointer;
 }
 
+/* 버튼에 마우스를 올리거나 키보드로 선택했을 때 */
 .calendar-nav:hover,
 .calendar-nav:focus-visible {
-	border-color: var(--color-brand);
-	background: #f5f8f4;
+	border-color: var(--primary);
+	background: var(--primary-light);
 	outline: none;
 }
 
+/* 현재 연도와 월 제목 */
 .calendar-month {
 	margin: 0;
-	color: var(--color-text);
+	color: var(--text);
 	font-size: 28px;
 	font-weight: 700;
 	text-align: center;
 }
 
+/* 요일과 날짜를 동일한 너비의 7열로 배치 */
 .calendar-weekdays,
+/* 남은 높이를 날짜 행에 균등하게 분배 */
 .calendar-days {
 	display: grid;
 	grid-template-columns: repeat(7, minmax(0, 1fr));
-	border-top: 1px solid #e7ebe7;
-	border-left: 1px solid #e7ebe7;
+	border-top: 1px solid var(--border);
+	border-left: 1px solid var(--border);
 	text-align: center;
 }
 
+/* 요일 행과 날짜 영역 사이 간격 */
 .calendar-weekdays {
 	margin-bottom: 6px;
 }
 
+/* 요일, 날짜, 빈 칸의 공통 테두리와 정렬 */
 .calendar-weekday,
+/* 날짜 칸과 빈 칸이 행 높이에 맞게 줄어들도록 설정 */
 .calendar-day,
 .calendar-empty {
 	display: grid;
 	place-items: center;
 	min-height: 76px;
-	border-right: 1px solid #e7ebe7;
-	border-bottom: 1px solid #e7ebe7;
+	border-right: 1px solid var(--border);
+	border-bottom: 1px solid var(--border);
 	font-size: 16px;
 }
 
+/* 요일 행의 높이와 글자 스타일 */
 .calendar-weekday {
 	min-height: 64px;
 }
 
+/* 남은 높이를 날짜 행에 균등하게 분배 */
 .calendar-days {
 	flex: 1;
 	grid-auto-rows: minmax(0, 1fr);
 	min-height: 0;
 }
 
+/* 날짜 칸과 빈 칸이 행 높이에 맞게 줄어들도록 설정 */
 .calendar-day,
 .calendar-empty {
 	min-height: 0;
 }
 
+/* 날짜와 할 일 입력란을 세로로 배치 */
 .calendar-day {
 	display: flex;
 	flex-direction: column;
@@ -97,6 +115,7 @@
 	padding: 12px;
 }
 
+/* 날짜 숫자를 왼쪽 위에 표시 */
 .calendar-date {
 	position: relative;
 	z-index: 1;
@@ -104,13 +123,14 @@
 	font-size: 16px;
 }
 
+/* 날짜별 할 일 입력란 */
 .calendar-todo-input {
 	flex: 1;
 	width: 100%;
 	min-height: 0;
 	padding: 2px 0;
 	border: 0;
-	color: var(--color-text);
+	color: var(--text);
 	background: transparent;
 	font: inherit;
 	font-size: 12px;
@@ -118,68 +138,81 @@
 	resize: none;
 }
 
+/* 입력 내용이 없을 때 안내 문구 */
 .calendar-todo-input::placeholder {
-	color: #a3aca4;
+	color: var(--text-muted);
 	font-size: 11px;
 }
 
+/* 키보드로 선택한 입력란의 테두리 강조 */
 .calendar-todo-input:focus-visible {
-	outline: 1px solid var(--color-brand);
+	outline: 1px solid var(--primary);
 	outline-offset: 2px;
 }
 
+/* 요일 행의 높이와 글자 스타일 */
 .calendar-weekday {
-	color: var(--color-muted);
+	color: var(--text-muted);
 	font-size: 14px;
 	font-weight: 700;
 }
 
+/* 일요일 글자색 */
 .calendar-weekday.is-sunday,
 .calendar-day.is-sunday {
 	color: #d94c4c;
 }
 
+/* 토요일 글자색 */
 .calendar-weekday.is-saturday,
 .calendar-day.is-saturday {
 	color: #3976c5;
 }
 
+/* 오늘 날짜 강조와 원형 표시의 위치 기준 */
 .calendar-day.is-today {
 	position: relative;
 	font-weight: 700;
 }
 
+/* 오늘 날짜를 둘러싸는 원형 테두리 */
 .calendar-day.is-today::after {
 	position: absolute;
 	top: 6px;
 	left: 6px;
 	width: 30px;
 	height: 30px;
-	border: 1px solid var(--color-brand);
+	border: 1px solid var(--primary);
 	border-radius: 50%;
 	content: "";
 }
 
+/* 화면 너비 640px 이하에서 적용하는 모바일 스타일 */
 @media (max-width: 640px) {
+	/* 사이드바와 본문을 위아래로 배치 */
 	.app-layout {
 		flex-direction: column;
 	}
 
+	/* 모바일 사이드바의 너비와 여백 */
 	.sidebar {
 		width: 100%;
 		min-height: auto;
 		padding: 18px 16px;
 	}
 
+	/* 브랜드 영역 아래 간격 */
 	.sidebar-brand {
 		margin-bottom: 16px;
 	}
 
+	/* 메뉴를 가로로 배치 */
 	.sidebar-nav {
 		flex-direction: row;
 		gap: 4px;
 	}
 
+	/* 메뉴 너비와 글자 크기 조정 */
 	.sidebar-link {
 		flex: 1;
 		justify-content: center;
@@ -188,60 +221,138 @@
 		font-size: 12px;
 	}
 
+	/* 모바일에서 프로필 영역 숨김 */
 	.sidebar-profile {
 		display: none;
 	}
 
+	/* 모바일 본문 여백 */
 	.page-content {
 		padding: 16px;
 	}
 
+	/* 모바일 달력의 최소 높이와 여백 */
 	.month-calendar {
 		height: max(460px, calc(100vh - 166px));
 		padding: 18px;
 	}
 
+	/* 모바일 상단 버튼 영역과 간격 축소 */
 	.calendar-header {
 		grid-template-columns: 40px 1fr 40px;
 		margin-bottom: 14px;
 	}
 
+	/* 모바일 이동 버튼 크기 */
 	.calendar-nav {
 		width: 40px;
 		height: 40px;
 	}
 
+	/* 모바일 월 제목 글자 크기 */
 	.calendar-month {
 		font-size: 20px;
 	}
 
+	/* 모바일 달력 칸의 기본 글자 크기 */
 	.calendar-weekday,
+	/* 날짜 칸과 빈 칸이 행 높이에 맞게 줄어들도록 설정 */
 	.calendar-day,
 	.calendar-empty {
 		font-size: 14px;
 	}
 
+	/* 모바일 요일 행 높이와 글자 크기 */
 	.calendar-weekday {
 		min-height: 48px;
 		font-size: 12px;
 	}
 
+	/* 모바일 오늘 표시 원 크기 */
 	.calendar-day.is-today::after {
 		width: 28px;
 		height: 28px;
 	}
 
+	/* 모바일 날짜 칸의 간격과 여백 */
 	.calendar-day {
 		gap: 5px;
 		padding: 8px;
 	}
 
+	/* 모바일 날짜 숫자 크기 */
 	.calendar-date {
 		font-size: 14px;
 	}
 
+	/* 모바일 할 일 입력 글자 크기 */
 	.calendar-todo-input {
 		font-size: 11px;
 	}
 }
 
+
+/* 달력 아래 중요 과제와 마감일 영역 */
+
+
+.deadline-panel p { margin-top: 8px; font-size: 13px; color: var(--text-muted); }
+/* 과제 카드와 D-Day 배지 */
+.deadline-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 10px; list-style: none; margin-top: 14px; }
+.deadline-item { display: flex; align-items: center; gap: 10px; padding: 12px; border-radius: 8px; background: var(--bg); min-width: 0; }
+.deadline-info { flex: 1; min-width: 0; }
+.deadline-info strong { display: block; font-size: 14px; overflow-wrap: anywhere; }
+.deadline-info small { display: block; margin-top: 5px; color: var(--text-muted); }
+.deadline-badge { flex-shrink: 0; padding: 6px 8px; border-radius: 6px; background: var(--primary-light); font-size: 12px; font-weight: bold; }
+.deadline-badge.is-urgent { background: #FCE7DF; color: #9B3825; }
+.deadline-empty { color: var(--text-muted); font-size: 13px; }
+
+/* 달력 크기를 유지한 채 겹쳐 올라오는 하단 패널 */
+.deadline-panel {
+  position: fixed;
+  z-index: 30;
+  left: 264px;
+  right: 24px;
+  bottom: 0;
+  height: 50dvh;
+  max-height: 560px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-bottom: 0;
+  border-radius: 16px 16px 0 0;
+  background: var(--card);
+  box-shadow: 0 -4px 20px rgb(0 0 0 / 8%);
+  transform: translateY(calc(100% - 52px));
+  transition: transform 280ms ease;
+}
+.deadline-panel.is-open { transform: translateY(0); }
+/* 접힌 상태에서도 보이는 제목 바 */
+.deadline-toggle {
+  position: relative;
+  flex: 0 0 52px;
+  width: 100%;
+  padding: 15px 24px 8px;
+  border: 0;
+  border-radius: 16px 16px 0 0;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.deadline-toggle:focus-visible { outline: 2px solid var(--primary); outline-offset: -4px; }
+.deadline-handle { position: absolute; top: 6px; left: calc(50% - 18px); width: 36px; height: 4px; border-radius: 4px; background: var(--border); }
+.deadline-arrow { position: absolute; right: 20px; transition: transform 280ms ease; }
+.deadline-panel.is-open .deadline-arrow { transform: rotate(180deg); }
+/* 목록이 길면 펼쳐진 패널 안에서만 스크롤 */
+.deadline-content { flex: 1; min-height: 0; overflow-y: auto; padding: 0 20px max(20px, env(safe-area-inset-bottom)); visibility: hidden; transition: visibility 280ms; }
+.deadline-panel.is-open .deadline-content { visibility: visible; }
+.deadline-backdrop { position: fixed; inset: 0; z-index: 20; background: rgb(0 0 0 / 18%); }
+@media (max-width: 640px) {
+  .deadline-panel { left: 16px; right: 16px; }
+  .deadline-content { padding-left: 16px; padding-right: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .deadline-panel, .deadline-arrow, .deadline-content { transition: none; }
+}
