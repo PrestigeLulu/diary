@@ -2,7 +2,7 @@ const rows = document.querySelector(".scheduleRows");
 const countEl = document.querySelector(".scheduleCount");
 
 /* ---------- 데이터 ---------- */
-export function addSchedule(title, date, time, category) {
+function addSchedule(title, date, time, category) {
   const schedules = getSchedules();
 
   const newSchedule = {
@@ -19,7 +19,7 @@ export function addSchedule(title, date, time, category) {
   localStorage.setItem("nextScheduleId", newSchedule.id + 1);
 }
 
-export function deleteSchedule(id) {
+function deleteSchedule(id) {
   if (!confirm("이 일정을 삭제할까요?")) return;
 
   const schedules = getSchedules().filter((s) => s.id !== id);
@@ -28,24 +28,24 @@ export function deleteSchedule(id) {
 }
 
 /* ---------- 입력 검사 ---------- */
-export function isValidDate(text) {
+function isValidDate(text) {
   return /^\d{4}-\d{2}-\d{2}$/.test(text) && !isNaN(new Date(text));
 }
 
-export function isValidTime(text) {
+function isValidTime(text) {
   return /^([01]\d|2[0-3]):[0-5]\d$/.test(text);
 }
 
 /* ---------- 화면 그리기 ---------- */
 const WEEKDAYS = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
 
-export function escapeHtml(text) {
+function escapeHtml(text) {
   const div = document.createElement("div");
   div.textContent = text;
   return div.innerHTML;
 }
 
-export function renderSchedules() {
+function renderSchedules() {
   const schedules = getSchedules();
 
   schedules.sort((a, b) =>
@@ -122,7 +122,7 @@ document.querySelector(".scheduleAdd").addEventListener("click", function () {
 });
 
 /* ---------- 일정 수정 (prompt) ---------- */
-export function editSchedule(id) {
+function editSchedule(id) {
   const schedules = getSchedules();
   const target = schedules.find((s) => s.id === id);
   if (!target) return;
