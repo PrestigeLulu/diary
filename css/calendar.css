@@ -385,3 +385,5 @@
   .calendar-weekday { min-height: 36px; }
   .calendar-day { gap: 4px; padding: 8px; }
 }
+/* 달력 입력의 자동 저장 상태 */
+.calendar-save-status { flex-shrink: 0; margin-bottom: 6px; color: var(--text-muted); font-size: 12px; line-height: 1.4; }

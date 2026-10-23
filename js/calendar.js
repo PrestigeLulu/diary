@@ -51,23 +51,14 @@ if (
 			const todoInput = document.createElement("textarea");
 			const weekday = new Date(year, month, day).getDay();
 			const dateKey = `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
-			const storageKey = `diary-todos:${dateKey}`;
 			dateCell.className = "calendar-day";
 			dateLabel.className = "calendar-date";
 			dateLabel.dateTime = dateKey;
 			dateLabel.textContent = String(day);
 			todoInput.className = "calendar-todo-input";
 			todoInput.rows = 2;
-			todoInput.value = localStorage.getItem(storageKey) ?? "";
-			todoInput.placeholder = "오늘의 할 일";
 			todoInput.setAttribute("aria-label", `${month + 1}월 ${day}일 할 일`);
-			todoInput.addEventListener("input", () => {
-				if (todoInput.value.trim()) {
-					localStorage.setItem(storageKey, todoInput.value);
-				} else {
-					localStorage.removeItem(storageKey);
-				}
-			});
+			window.bindCalendarTodo(todoInput, dateKey);
 			dateCell.append(dateLabel, todoInput);
 
 			if (weekday === 0) dateCell.classList.add("is-sunday");
