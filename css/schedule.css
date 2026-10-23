@@ -1,81 +1,177 @@
-.schedule-main {
-  width: 100%;
-  display: flex;
-  position: absolute;
-  left: 280px;
-  top: 40px;
-  bottom: 0;
+/* 배경색 (common.css의 body보다 나중에 로드되므로 덮어씀) */
+body {
+  background: var(--page-bg);
 }
 
-.schedule-box1 {
+/* 사이드바(absolute, 폭 240px) 오른쪽에 놓이는 본문 */
+.schedulePage {
+  margin-left: 240px;   /* 사이드바 폭만큼 밀기 */
+  padding: 40px 48px;
+  min-height: 100vh;
+}
+
+/* 제목 + 버튼 */
+.scheduleHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 32px;
+}
+
+.scheduleTitle h1 {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.scheduleTitle p {
+  font-size: 15px;
+  color: var(--color-muted);
+}
+
+.scheduleAdd {
+  display: flex;
+  align-items: center;
   gap: 8px;
-  border: 1px solid gray;
+  height: 44px;
+  padding: 0 20px;
+  border: none;
   border-radius: 10px;
-  width: auto;
-  height: 40px;
-  display: flex;
-  position: absolute;
-    left: 280px;
-    top: 150px;
-  padding: 5px 15px;
-  background-color: #ffffff;
-}
-
-.schedule-box2 {
-  gap: 8px;
-  border: 1px solid gray;
-  border-radius: 10px;
-  width: auto;
-  height: 40px;
-  display: flex;
-  position: absolute;
-    left: 480px;
-    top: 150px;
-  padding: 5px 15px;
-  background-color: #ffffff;
-}
-
-.gap{
-  gap: 12px;
-}
-
-.schedule-add {
-  gap: 8px;
   background-color: #3f6847;
   color: #ffffff;
-  padding: 7px 15px;
-  position: absolute;
-    right: 100px;
-    top: 50px;
-  width: auto;
-  height: 40px;
-  display: flex;
-  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+/* 아이콘 (HTML의 class="box-icon"과 이름 일치) */
 .box-icon {
-  align-items: center;
-  justify-content: center;
   width: 20px;
   height: 20px;
   flex: 0 0 auto;
-  padding-top: 5px;
 }
 
-.schedule-list {
-  width: 1030px;
-  height: auto;
-  border: 1px solid #7a847c;
-  border-radius: 15px;
-  position: absolute;
-    top: 250px;
-    left: 280px;
-  background-color: #d2e5d6;
+/* 필터 줄 */
+.scheduleFilters {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
 }
 
-.schedule-list-box {
-  width: auto;
-  height: 100px;
-  border: auto #7a847c;
+.filterBox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 42px;
+  padding: 0 16px;
+  border: 1px solid var(--card-border);
+  border-radius: 10px;
   background-color: #ffffff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.filterLabel {
+  color: var(--color-muted);
+}
+
+.filterValue {
+  font-weight: 700;
+}
+
+/* 일정 카드 */
+.scheduleList {
+  width: 100%;
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.scheduleListHead {
+  padding: 14px 22px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-muted);
+  background-color: #fafbf8;
+  border-bottom: 1px solid var(--card-border);
+}
+
+/* 일정 한 줄 */
+.scheduleListBox {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--card-border);
+}
+
+.scheduleListBox:last-child {
+  border-bottom: none;
+}
+
+.dateBox,
+.timeBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  flex: 0 0 auto;
+}
+
+.dateBox {
+  width: 90px;
+}
+
+.dateBox strong {
+  font-size: 24px;
+}
+
+.timeBox strong {
+  font-size: 16px;
+}
+
+.dateBox span,
+.timeBox span {
+  font-size: 12px;
+  color: var(--color-muted);
+}
+
+.line {
+  flex: 0 0 auto;
+  width: 1px;
+  height: 50px;
+  background-color: var(--card-border);
+}
+
+/* 카테고리 점 */
+.category-dot {
+  flex: 0 0 auto;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.category-dot.green {
+  background-color: #6f9a78;
+}
+
+/* 제목 + 설명: 남는 공간을 전부 차지 */
+.scheduleInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.scheduleInfo h2 {
+  margin-bottom: 6px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.scheduleInfo p {
+  font-size: 14px;
+  color: var(--color-muted);
 }

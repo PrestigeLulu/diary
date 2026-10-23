@@ -81,45 +81,66 @@
 
       <!-- 오른쪽 캘린더 페이지 본문 영역 -->
       <main class="page-content" aria-label="캘린더 페이지"></main>
-    </div>
+  </div>
   <script src="./js/schedule.js"></script>
 
-  <div class="schedule-main">
-    <h1>일정</h1>
-    <p style="color: gray; position: absolute; top: 50px;">다가오는 약속과 계획을 한눈에 정리해요.</p>
-  </div>
-  
-  <div class="schedule-box1">
-    <img
-      class="box-icon"
-      src="./assets/images/calendar.svg"
-    />
-    <p style="bottom: 3px; left: 10px; color: gray;">날짜</p>
-    <p>2026년 9월</p>
-  </div>
+  <!-- 사이드바 오른쪽 본문 영역 -->
+  <div class="schedulePage">
 
-  <div class="schedule-box2">
-    <img
-      class="box-icon"
-      src="./assets/images/tag.svg"
-    />
-    <p style="bottom: 3px; left: 10px; color: gray;">카테고리</p>
-    <p>전체</p>
-  </div>
-
-  <div class="schedule-add">
-    <img
-      class="box-icon"
-      src="./assets/images/circle-plus.svg"
-    />
-    <p>일정 추가</p>
-  </div>
-
-  <div class="schedule-list">
-    <p>-------------------------------</p>
-    <div class="schedule-list-box">
-      <p>sfdsfsdfsf</p>
+    <!-- 제목 + 일정 추가 버튼 -->
+    <div class="scheduleHeader">
+      <div class="scheduleTitle">
+        <h1>일정</h1>
+        <p>다가오는 약속과 계획을 한눈에 정리해요.</p>
+      </div>
+      <button class="scheduleAdd" type="button">
+        <img class="box-icon" src="./assets/images/circle-plus.svg" alt="" />
+        일정 추가
+      </button>
     </div>
+
+    <!-- 필터 -->
+    <div class="scheduleFilters">
+      <div class="filterBox">
+        <img class="box-icon" src="./assets/images/calendar.svg" alt="" />
+        <span class="filterLabel">날짜</span>
+        <span class="filterValue">2026년 9월</span>
+      </div>
+
+      <div class="filterBox">
+        <img class="box-icon" src="./assets/images/tag.svg" alt="" />
+        <span class="filterLabel">카테고리</span>
+        <span class="filterValue">전체</span>
+      </div>
+    </div>
+
+    <!-- 일정 카드 -->
+    <div class="scheduleList">
+      <p class="scheduleListHead">9월의 일정</p>
+      <p style='right'>날짜순</p>
+
+      <div class="scheduleListBox">
+        <div class="dateBox">
+          <strong>09</strong>
+          <span>9월 · 수요일</span>
+        </div>
+
+        <div class="line"></div>
+
+        <div class="timeBox">
+          <strong>09:00</strong>
+          <span>1시간</span>
+        </div>
+
+        <span class="category-dot green"></span>
+
+        <div class="scheduleInfo">
+          <h2>주간 팀 미팅</h2>
+          <p>이번 주 진행 상황과 다음 스프린트 계획 정리</p>
+        </div>
+      </div>
+    </div>
+
   </div>
 </body>
 </html>
