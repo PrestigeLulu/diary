@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="./css/reset.css">
   <link rel="stylesheet" href="./css/common.css">
   <link rel="stylesheet" href="./css/schedule.css">
-</head>
 <body>
   <div class="app-layout"; style="position: absolute;">
       <!-- 왼쪽 사이드바 전체 영역 좌측 고정 -->
@@ -105,19 +104,29 @@
         <img class="box-icon" src="./assets/images/calendar.svg" alt="" />
         <span class="filterLabel">날짜</span>
         <span class="filterValue">2026년 9월</span>
+        <span class="filterArrow"></span>
       </div>
 
       <div class="filterBox">
         <img class="box-icon" src="./assets/images/tag.svg" alt="" />
         <span class="filterLabel">카테고리</span>
         <span class="filterValue">전체</span>
+        <span class="filterArrow"></span>
+      </div>
+
+      <div class="scheduleCount">
+        <span>총 1개의 일정</span>
       </div>
     </div>
 
+
+
     <!-- 일정 카드 -->
     <div class="scheduleList">
-      <p class="scheduleListHead">9월의 일정</p>
-      <p style='right'>날짜순</p>
+      <div class="scheduleListHead">
+        <span>9월의 일정</span>
+        <span class="scheduleListSort">날짜순</span>
+      </div>
 
       <div class="scheduleListBox">
         <div class="dateBox">
@@ -138,6 +147,8 @@
           <h2>주간 팀 미팅</h2>
           <p>이번 주 진행 상황과 다음 스프린트 계획 정리</p>
         </div>
+        <button class="icon-button" type="button">✎</button>
+        <button class="icon-button delete" type="button">×</button>
       </div>
     </div>
 

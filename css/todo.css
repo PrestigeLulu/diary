@@ -1,6 +1,6 @@
 .todo-page {
   flex: 1;
-  padding: 35px;
+  padding: 40px 48px;
   background: var(--bg);
   color: var(--text);
 }
@@ -9,11 +9,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 28px;
+  margin-bottom: 22px;
 }
 
 .todo-header h1 {
-  font-size: 28px;
+  font-size: 32px;
+  font-weight: 700;
   margin-bottom: 8px;
 }
 
@@ -60,7 +61,7 @@
 
 .stat:nth-child(3) {
   border-radius: 0 10px 10px 0;
-}
+} 
 
 .stat strong {
   font-size: 13px;

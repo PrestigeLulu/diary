@@ -1,6 +1,6 @@
 /* 배경색 (common.css의 body보다 나중에 로드되므로 덮어씀) */
 body {
-  background: var(--page-bg);
+  background: var(--bg);
 }
 
 /* 사이드바(absolute, 폭 240px) 오른쪽에 놓이는 본문 */
@@ -26,7 +26,7 @@ body {
 
 .scheduleTitle p {
   font-size: 15px;
-  color: var(--color-muted);
+  color: var(--text-muted);
 }
 
 .scheduleAdd {
@@ -66,25 +66,48 @@ body {
   gap: 8px;
   height: 42px;
   padding: 0 16px;
-  border: 1px solid var(--card-border);
+  border: 1px solid var(--border);
   border-radius: 10px;
   background-color: #ffffff;
   font-size: 14px;
   cursor: pointer;
 }
 
+.filterArrow {
+  width: 8px;
+  height: 8px;
+  margin-left: 4px;
+  border-right: 2px solid var(--text-muted);
+  border-bottom: 2px solid var(--text-muted);
+  transform: rotate(45deg);     /* ⌄ 모양 */
+  transition: transform 0.2s;
+}
+
+/* 목록이 열렸을 때 상하반전 (⌃) */
+.filterBox.open .filterArrow {
+  transform: rotate(-135deg);
+}
+
 .filterLabel {
-  color: var(--color-muted);
+  color: var(--text-muted);
 }
 
 .filterValue {
   font-weight: 700;
 }
 
+/*일정 갯수 스타일*/
+.scheduleCount {
+  margin-right: 5px;
+  margin-left: auto;          /* 오른쪽 끝으로 밀기 */
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
 /* 일정 카드 */
 .scheduleList {
   width: 100%;
-  border: 1px solid var(--card-border);
+  border: 1px solid var(--border);
   border-radius: 16px;
   background-color: #ffffff;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
@@ -92,12 +115,20 @@ body {
 }
 
 .scheduleListHead {
+  display: flex;
+  justify-content: space-between;  /* 왼쪽 / 오른쪽 양끝 배치 */
+  align-items: center;
   padding: 14px 22px;
   font-size: 13px;
   font-weight: 700;
-  color: var(--color-muted);
+  color: var(--text-muted);
   background-color: #fafbf8;
-  border-bottom: 1px solid var(--card-border);
+  border-bottom: 1px solid var(--border);
+}
+
+.scheduleListSort {
+  font-size: 12px;
+  font-weight: 400;
 }
 
 /* 일정 한 줄 */
@@ -106,7 +137,7 @@ body {
   align-items: center;
   gap: 24px;
   padding: 20px 24px;
-  border-bottom: 1px solid var(--card-border);
+  border-bottom: 1px solid var(--border);
 }
 
 .scheduleListBox:last-child {
@@ -137,14 +168,14 @@ body {
 .dateBox span,
 .timeBox span {
   font-size: 12px;
-  color: var(--color-muted);
+  color: var(--text-muted);
 }
 
 .line {
   flex: 0 0 auto;
   width: 1px;
   height: 50px;
-  background-color: var(--card-border);
+  background-color: var(--border);
 }
 
 /* 카테고리 점 */
@@ -173,5 +204,17 @@ body {
 
 .scheduleInfo p {
   font-size: 14px;
-  color: var(--color-muted);
+  color: var(--text-muted);
+}
+
+.icon-button {
+  margin-left: 8px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.icon-button.delete {
+  color: #b46a67;
 }
