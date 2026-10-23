@@ -105,3 +105,90 @@ if (
 
 	renderCalendar();
 }
+
+// 기존 할 일 저장소를 공유하고, 미완료인 중요 항목과 마감일을 표시합니다.
+const deadlineList = document.querySelector("#deadline-list");
+const deadlineMessage = document.querySelector("#deadline-message");
+function readDeadlineTodos() {
+  const todos = JSON.parse(localStorage.getItem("todos") || "[]");
+  if (!Array.isArray(todos)) throw new Error("잘못된 할 일 데이터");
+  return todos;
+}
+// 날짜 단위로 비교하여 시간대와 서머타임에 따른 오차를 방지합니다.
+function deadlineDay(value) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value || "")) return null;
+  const date = new Date(`${value}T00:00:00Z`);
+  if (!Number.isFinite(date.getTime()) || date.toISOString().slice(0, 10) !== value) return null;
+  return date.getTime() / 86400000;
+}
+function renderDeadlines() {
+  if (!deadlineList) return;
+  try {
+    const now = new Date();
+    const todayKey = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+    const todayDay = deadlineDay(todayKey);
+    const todos = readDeadlineTodos()
+      .filter(todo => todo && !todo.completed && (todo.priority === "high" || deadlineDay(todo.dueDate) !== null))
+      .sort((a, b) => (deadlineDay(a.dueDate) ?? Infinity) - (deadlineDay(b.dueDate) ?? Infinity));
+    deadlineList.replaceChildren();
+    if (!todos.length) {
+      const empty = document.createElement("li");
+      empty.className = "deadline-empty";
+      empty.textContent = "중요하거나 마감일이 있는 미완료 할 일이 없습니다.";
+      deadlineList.append(empty);
+    }
+    todos.forEach(todo => {
+      const item = document.createElement("li");
+      item.className = "deadline-item";
+      const info = document.createElement("div");
+      info.className = "deadline-info";
+      const title = document.createElement("strong");
+      title.textContent = `${todo.priority === "high" ? "★ " : ""}${todo.title}`;
+      const date = document.createElement("small");
+      const day = deadlineDay(todo.dueDate);
+      date.textContent = day === null ? "마감일 미지정" : `마감 ${todo.dueDate}`;
+      info.append(title, date);
+      const badge = document.createElement("span");
+      badge.className = "deadline-badge";
+      const remaining = day === null ? null : day - todayDay;
+      badge.textContent = remaining === null ? "중요" : remaining < 0 ? `${-remaining}일 지남` : remaining === 0 ? "D-Day" : `D-${remaining}`;
+      if (remaining !== null && remaining <= 3) badge.classList.add("is-urgent");
+      item.append(info, badge);
+      deadlineList.append(item);
+    });
+  } catch {
+    deadlineMessage.textContent = "저장된 할 일을 불러오지 못했습니다. 저장소 설정을 확인해 주세요.";
+  }
+}
+if (deadlineList) {
+  window.addEventListener("storage", renderDeadlines);
+  window.addEventListener("focus", renderDeadlines);
+  // 페이지를 계속 열어 두어도 자정 이후 남은 기한을 갱신합니다.
+  setInterval(renderDeadlines, 60000);
+  renderDeadlines();
+}
+// 하단 바를 누르면 목록을 펼치고, 바깥 영역이나 Esc 키로 닫습니다.
+const deadlinePanel = document.querySelector("#deadline-panel");
+const deadlineToggle = document.querySelector("#deadline-toggle");
+const deadlineContent = document.querySelector("#deadline-content");
+const deadlineBackdrop = document.querySelector("#deadline-backdrop");
+if (deadlinePanel && deadlineToggle && deadlineContent && deadlineBackdrop) {
+  function setDeadlineOpen(open) {
+    deadlinePanel.classList.toggle("is-open", open);
+    deadlineToggle.setAttribute("aria-expanded", String(open));
+    deadlineContent.inert = !open;
+    deadlineBackdrop.hidden = !open;
+    if (open) renderDeadlines();
+    else if (deadlineContent.contains(document.activeElement)) deadlineToggle.focus();
+  }
+  deadlineToggle.addEventListener("click", () => {
+    setDeadlineOpen(deadlineToggle.getAttribute("aria-expanded") !== "true");
+  });
+  deadlineBackdrop.addEventListener("click", () => setDeadlineOpen(false));
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && deadlineToggle.getAttribute("aria-expanded") === "true") {
+      setDeadlineOpen(false);
+      deadlineToggle.focus();
+    }
+  });
+}
