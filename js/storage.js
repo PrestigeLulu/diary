@@ -1,16 +1,16 @@
-export function getSchedules() {
+function getSchedules() {
   return JSON.parse(localStorage.getItem("schedules")) || [];
 }
 
-export function saveSchedules(schedules) {
+function saveSchedules(schedules) {
   localStorage.setItem("schedules", JSON.stringify(schedules));
 }
 
-export function getTodos() {
+function getTodos() {
   return JSON.parse(localStorage.getItem("todos")) || [];
 }
 
-export function saveTodos(todos) {
+function saveTodos(todos) {
   localStorage.setItem("todos", JSON.stringify(todos));
 }
 // 날짜별 달력 메모는 기존 키를 유지해 이전 입력도 그대로 불러옵니다.

@@ -17,6 +17,7 @@
         </span>
         <span class="brand-name">다이어리</span>
       </a>
+
       <nav class="sidebar-nav">
         <a class="sidebar-link" href="./index.html">
           <img class="sidebar-icon" src="./assets/images/calendar.svg" alt="">
@@ -35,6 +36,7 @@
           <span>설정</span>
         </a>
       </nav>
+
       <div class="sidebar-profile">
         <span class="profile-avatar"></span>
         <div>
@@ -56,89 +58,38 @@
       </header>
 
       <div class="todo-stats">
-        <div class="stat">
+        <div class="stat is-active" onclick="filterView('all', this)">
           <span>전체</span>
-          <strong id="total-count">6</strong>
+          <strong id="total-count">0</strong>
         </div>
-        <div class="stat">
+
+        <div class="stat" onclick="filterView('incomplete', this)">
           <span>미완료</span>
-          <strong id="active-count">4</strong>
+          <strong id="active-count">0</strong>
         </div>
-        <div class="stat">
+
+        <div class="stat" onclick="filterView('completed', this)">
           <span>완료</span>
-          <strong id="completed-count">2</strong>
+          <strong id="completed-count">0</strong>
         </div>
-        <p id="today-count">오늘 2개 완료</p>
+
+        <p id="today-count">오늘 0개 완료</p>
       </div>
 
       <section class="todo-section">
-        <h2>해야 할 일 <span id="active-title-count">4</span></h2>
-        <ul class="todo-list" id="active-list">
-          <li class="todo-item">
-            <input type="checkbox">
-            <div class="todo-info">
-              <strong>프로젝트 제안서 최종 검토</strong>
-              <p>디자인 시안과 예상 일정 다시 확인하기</p>
-            </div>
-            <span class="todo-date">오늘 · 오후 5:00</span>
-            <span class="priority high">높음</span>
-          </li>
-          <li class="todo-item">
-            <input type="checkbox">
-            <div class="todo-info">
-              <strong>치과 정기 검진 예약</strong>
-              <p>회사 근처 병원으로 예약</p>
-            </div>
-            <span class="todo-date">9월 11일</span>
-            <span class="priority medium">보통</span>
-          </li>
-          <li class="todo-item">
-            <input type="checkbox">
-            <div class="todo-info">
-              <strong>읽던 책 3장 마무리</strong>
-              <p>저녁 루틴 · 30분</p>
-            </div>
-            <span class="todo-date">9월 12일</span>
-            <span class="priority low">낮음</span>
-          </li>
-          <li class="todo-item">
-            <input type="checkbox">
-            <div class="todo-info">
-              <strong>이번 주 장보기 목록 정리</strong>
-              <p>우유, 사과, 파스타, 세제</p>
-            </div>
-            <span class="todo-date">9월 13일</span>
-            <span class="priority medium">보통</span>
-          </li>
-        </ul>
+        <h2>해야 할 일 <span id="active-title-count">0</span></h2>
+        <ul class="todo-list" id="active-list"></ul>
       </section>
 
       <section class="todo-section">
         <h2>완료한 일</h2>
-        <ul class="todo-list" id="completed-list">
-          <li class="todo-item completed">
-            <input type="checkbox" checked>
-            <div class="todo-info">
-              <strong>부모님께 안부 전화</strong>
-              <p>주말 일정 이야기하기</p>
-            </div>
-            <span class="todo-date">9월 8일 완료</span>
-            <span class="priority medium">보통</span>
-          </li>
-          <li class="todo-item completed">
-            <input type="checkbox" checked>
-            <div class="todo-info">
-              <strong>여행 사진 백업</strong>
-              <p>클라우드 앨범 분류까지</p>
-            </div>
-            <span class="todo-date">9월 7일 완료</span>
-            <span class="priority low">낮음</span>
-          </li>
-        </ul>
+        <ul class="todo-list" id="completed-list"></ul>
       </section>
     </main>
   </div>
+
   <script src="./js/main.js"></script>
+  <script src="./js/storage.js"></script>
   <script src="./js/todo.js"></script>
 </body>
 </html>
