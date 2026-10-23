@@ -218,3 +218,16 @@ body {
 .icon-button.delete {
   color: #b46a67;
 }
+
+/* 카테고리 점 색 */
+.category-dot.업무 { background-color: #6f9a78; }
+.category-dot.약속 { background-color: #b5654f; }
+.category-dot.건강 { background-color: #7a6a9a; }
+
+/* 일정이 없을 때 */
+.scheduleEmpty {
+  padding: 40px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 14px;
+}

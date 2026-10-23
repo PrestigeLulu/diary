@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Diary - Schedule</title>
-  <link rel="stylesheet" href="./css/reset.css">
   <link rel="stylesheet" href="./css/common.css">
   <link rel="stylesheet" href="./css/schedule.css">
 <body>
@@ -81,7 +80,6 @@
       <!-- 오른쪽 캘린더 페이지 본문 영역 -->
       <main class="page-content" aria-label="캘린더 페이지"></main>
   </div>
-  <script src="./js/schedule.js"></script>
 
   <!-- 사이드바 오른쪽 본문 영역 -->
   <div class="schedulePage">
@@ -100,26 +98,10 @@
 
     <!-- 필터 -->
     <div class="scheduleFilters">
-      <div class="filterBox">
-        <img class="box-icon" src="./assets/images/calendar.svg" alt="" />
-        <span class="filterLabel">날짜</span>
-        <span class="filterValue">2026년 9월</span>
-        <span class="filterArrow"></span>
-      </div>
-
-      <div class="filterBox">
-        <img class="box-icon" src="./assets/images/tag.svg" alt="" />
-        <span class="filterLabel">카테고리</span>
-        <span class="filterValue">전체</span>
-        <span class="filterArrow"></span>
-      </div>
-
-      <div class="scheduleCount">
-        <span>총 1개의 일정</span>
-      </div>
+      <div class="filterBox">...</div>
+      <div class="filterBox">...</div>
+      <span class="scheduleCount">총 0개의 일정</span>
     </div>
-
-
 
     <!-- 일정 카드 -->
     <div class="scheduleList">
@@ -128,30 +110,14 @@
         <span class="scheduleListSort">날짜순</span>
       </div>
 
-      <div class="scheduleListBox">
-        <div class="dateBox">
-          <strong>09</strong>
-          <span>9월 · 수요일</span>
-        </div>
-
-        <div class="line"></div>
-
-        <div class="timeBox">
-          <strong>09:00</strong>
-          <span>1시간</span>
-        </div>
-
-        <span class="category-dot green"></span>
-
-        <div class="scheduleInfo">
-          <h2>주간 팀 미팅</h2>
-          <p>이번 주 진행 상황과 다음 스프린트 계획 정리</p>
-        </div>
-        <button class="icon-button" type="button">✎</button>
-        <button class="icon-button delete" type="button">×</button>
-      </div>
+      <!-- JS가 일정 행을 여기에 채움 -->
+      <div class="scheduleRows"></div>
     </div>
 
   </div>
+
+  <!-- 순서 중요 -->
+  <script src="./js/storage.js"></script>
+  <script type="module" src="./js/schedule.js"></script>
 </body>
 </html>
