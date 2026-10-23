@@ -192,3 +192,50 @@ if (deadlinePanel && deadlineToggle && deadlineContent && deadlineBackdrop) {
     }
   });
 }
+// 하루 동안 같은 글귀를 유지하고, 다음 날에는 직전과 다른 글귀를 선택합니다.
+const encouragementElement = document.querySelector("#daily-encouragement");
+const encouragementQuotes = [
+  "오늘도 당신의 속도로, 한 걸음씩 나아가요.",
+  "조금 느려도 괜찮아요. 당신은 앞으로 가고 있어요.",
+  "오늘 해낸 작은 일도 충분히 소중해요.",
+  "잠깐 쉬어 가도 괜찮아요. 쉼도 하루의 일부니까요.",
+  "완벽하지 않아도 괜찮아요. 시작한 것만으로도 의미 있어요.",
+  "어제보다 작은 한 걸음, 그것만으로도 충분해요.",
+  "모든 일을 다 하지 못해도, 당신의 하루는 소중해요.",
+  "힘든 날에는 스스로에게 조금 더 다정해져요.",
+  "지금의 작은 노력이 내일의 당신을 도와줄 거예요.",
+  "오늘도 여기까지 온 당신, 수고 많았어요.",
+  "잘하고 싶은 마음만큼, 자신을 아끼는 마음도 챙겨요.",
+  "새로운 하루에는 다시 시작할 기회가 있어요."
+];
+let dailyEncouragement = null;
+function renderDailyEncouragement() {
+  if (!encouragementElement) return;
+  const now = new Date();
+  const date = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+  let saved = dailyEncouragement;
+  try {
+    const stored = JSON.parse(localStorage.getItem("diary-daily-encouragement"));
+    if (stored && encouragementQuotes.includes(stored.quote)) saved = stored;
+  } catch {
+    // 저장소를 사용할 수 없어도 현재 페이지에서는 글귀를 표시합니다.
+  }
+  if (!saved || saved.date !== date) {
+    const candidates = encouragementQuotes.filter(quote => quote !== saved?.quote);
+    saved = { date, quote: candidates[Math.floor(Math.random() * candidates.length)] };
+    try {
+      localStorage.setItem("diary-daily-encouragement", JSON.stringify(saved));
+    } catch {
+      // 저장이 제한된 환경에서는 메모리에 보관합니다.
+    }
+  }
+  dailyEncouragement = saved;
+  encouragementElement.textContent = saved.quote;
+}
+if (encouragementElement) {
+  renderDailyEncouragement();
+  window.addEventListener("focus", renderDailyEncouragement);
+  window.addEventListener("storage", renderDailyEncouragement);
+  // 자정이 지난 뒤에도 페이지를 새로 열지 않고 글귀를 갱신합니다.
+  setInterval(renderDailyEncouragement, 60000);
+}
