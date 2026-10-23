@@ -8,41 +8,33 @@
   <link rel="stylesheet" href="./css/settings.css">
 </head>
 <body>
-
   <div class="app-layout">
-
     <!-- 사이드바 -->
     <aside class="sidebar">
-
       <a class="sidebar-brand" href="./index.html">
         <span class="brand-icon">
           <img src="./assets/images/book-open.svg" alt="">
         </span>
         <span class="brand-name">다이어리</span>
       </a>
-
       <nav class="sidebar-nav">
         <a class="sidebar-link" href="./index.html">
           <img class="sidebar-icon" src="./assets/images/calendar.svg" alt="">
           <span>캘린더</span>
         </a>
-
         <a class="sidebar-link" href="./schedule.html">
           <img class="sidebar-icon" src="./assets/images/calendar.svg" alt="">
           <span>일정</span>
         </a>
-
         <a class="sidebar-link" href="./todo.html">
           <img class="sidebar-icon" src="./assets/images/check-circle.svg" alt="">
           <span>할 일</span>
         </a>
-
         <a class="sidebar-link is-active" href="./settings.html">
           <img class="sidebar-icon" src="./assets/images/settings.svg" alt="">
           <span>설정</span>
         </a>
       </nav>
-
       <div class="sidebar-profile">
         <span class="profile-avatar"></span>
         <div>
@@ -50,95 +42,68 @@
           <span id="my-stuid"></span>
         </div>
       </div>
-
     </aside>
-
     <!-- 설정 페이지 -->
     <main class="settings-page">
-
       <header class="page-header">
         <h1>마이페이지 / 설정</h1>
         <p>나만의 다이어리 환경을 편안하게 설정해 보세요.</p>
       </header>
-
       <div class="settings-grid">
-
         <div class="settings-left">
-
           <!-- 프로필 -->
           <section class="card profile-card">
-
-            <div class="profile-large" id="profile-avatar">KM</div>
-
+            <div class="profile-large" id="profile-avatar">AB</div>
             <div class="profile-info">
               <h2 id="profile-title"></h2>
               <p id="profile-stuid"></p>
               <span id="created-at"></span>
             </div>
-
+            <!-- 자바스크립트 edit Profile() 실행 -->
             <button class="outline-button" onclick="editProfile()" id="edit-profile" type="button">
               <span>✎</span> 프로필 수정
             </button>
-
           </section>
-
           <!-- 일정 카테고리 -->
           <section class="card category-card">
-
             <div class="section-title-row">
               <div>
                 <h2>일정 카테고리</h2>
                 <p>색상과 이름을 편집해 일정을 구분하세요.</p>
               </div>
-
               <button class="soft-button" id="add-category" onclick="addCategory()" type="button">
                 <span>＋</span> 카테고리 추가
               </button>
             </div>
-
             <ul class="category-list" id="category-list">
               <!-- js로 리스트 추가 -->
             </ul>
-
           </section>
-
         </div>
-
         <!-- 테마 설정 -->
         <div class="settings-right">
-
           <section class="card theme-card">
             <h2>테마 설정</h2>
-
             <div class="theme-options">
-
               <label class="theme-option">
                 <input type="radio" name="theme" value="light" checked>
                 <span class="theme-preview light"></span>
                 <span class="theme-name">라이트</span>
                 <span class="theme-check">✓</span>
               </label>
-
               <label class="theme-option">
                 <input type="radio" name="theme" value="dark">
                 <span class="theme-preview dark"></span>
                 <span class="theme-name">다크</span>
                 <span class="theme-check">✓</span>
               </label>
-
             </div>
-
           </section>
-
         </div>
-
       </div>
     </main>
-
   </div>
-
   <script src="./js/main.js"></script>
   <script src="./js/settings.js"></script>
-
 </body>
 </html>

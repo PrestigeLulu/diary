@@ -1,3 +1,68 @@
+// 공휴일 계산 결과를 연도별로 보관합니다. 외부 요청 없이 HTML 파일에서도 동작합니다.
+const calendarHolidayCache = new Map();
+function getCalendarHolidays(year) {
+  if (calendarHolidayCache.has(year)) return calendarHolidayCache.get(year);
+  const holidays = new Map();
+  const groups = [];
+  const keyOf = date => date.toISOString().slice(0, 10);
+  const addGroup = (name, dates, substitute = "none") => {
+    groups.push({ name, dates, substitute });
+    dates.forEach(date => {
+      const key = keyOf(date);
+      holidays.set(key, [...(holidays.get(key) || []), name]);
+    });
+  };
+  const solar = (month, day) => new Date(Date.UTC(year, month - 1, day));
+  const nationalSubstitute = year >= 2022 ? "weekend" : "none";
+  addGroup("신정", [solar(1, 1)]);
+  addGroup("삼일절", [solar(3, 1)], nationalSubstitute);
+  addGroup("어린이날", [solar(5, 5)], year >= 2014 ? "weekend" : "none");
+  addGroup("현충일", [solar(6, 6)]);
+  addGroup("광복절", [solar(8, 15)], year >= 2021 ? "weekend" : "none");
+  addGroup("개천절", [solar(10, 3)], year >= 2021 ? "weekend" : "none");
+  if (year >= 2013) addGroup("한글날", [solar(10, 9)], year >= 2021 ? "weekend" : "none");
+  addGroup("성탄절", [solar(12, 25)], year >= 2023 ? "weekend" : "none");
+  // 2026년 공휴일 지정 사항 반영.
+  if (year >= 2026) {
+    addGroup("노동절", [solar(5, 1)], "weekend");
+    addGroup("제헌절", [solar(7, 17)], "weekend");
+  }
+  if (year === 2026) addGroup("전국동시지방선거", [solar(6, 3)]);
+
+  // 한국 음력(dangi)으로 설날, 부처님오신날, 추석을 찾습니다. 윤달은 제외합니다.
+  const lunar = new Intl.DateTimeFormat("en-u-ca-dangi", {
+    month: "numeric", day: "numeric", timeZone: "Asia/Seoul"
+  });
+  for (let date = solar(1, 1); date.getUTCFullYear() === year; date.setUTCDate(date.getUTCDate() + 1)) {
+    const parts = lunar.formatToParts(date);
+    const month = parts.find(part => part.type === "month")?.value;
+    const day = Number(parts.find(part => part.type === "day")?.value);
+    if ((month === "1" && day === 1) || (month === "8" && day === 15)) {
+      const dates = [-1, 0, 1].map(offset => new Date(date.getTime() + offset * 86400000));
+      addGroup(month === "1" ? "설날 연휴" : "추석 연휴", dates, year >= 2014 ? "sunday" : "none");
+    }
+    if (month === "4" && day === 8) {
+      addGroup("부처님오신날", [new Date(date)], year >= 2023 ? "weekend" : "none");
+    }
+  }
+  // 설·추석은 토요일만 겹칠 때 대체하지 않습니다. 신정·현충일도 대체 대상이 아닙니다.
+  groups.sort((a, b) => a.dates[0] - b.dates[0]).forEach(group => {
+    if (group.substitute === "none") return;
+    const overlaps = group.dates.some(date => {
+      const weekday = date.getUTCDay();
+      return weekday === 0 || (group.substitute === "weekend" && weekday === 6)
+        || holidays.get(keyOf(date)).length > 1;
+    });
+    if (!overlaps) return;
+    const substitute = new Date(group.dates[group.dates.length - 1]);
+    do { substitute.setUTCDate(substitute.getUTCDate() + 1); }
+    while (substitute.getUTCDay() === 0 || substitute.getUTCDay() === 6 || holidays.has(keyOf(substitute)));
+    holidays.set(keyOf(substitute), [`대체공휴일 (${group.name})`]);
+  });
+  calendarHolidayCache.set(year, holidays);
+  return holidays;
+}
+
 const monthHeading = document.querySelector(".calendar-month");
 const weekdaysContainer = document.querySelector(".calendar-weekdays");
 const daysContainer = document.querySelector(".calendar-days");
@@ -20,6 +85,7 @@ if (
 		const month = displayedMonth.getMonth();
 		const firstWeekday = new Date(year, month, 1).getDay();
 		const daysInMonth = new Date(year, month + 1, 0).getDate();
+		const holidays = getCalendarHolidays(year);
 
 		monthHeading.textContent = new Intl.DateTimeFormat("ko-KR", {
 			year: "numeric",
@@ -55,6 +121,12 @@ if (
 			dateLabel.className = "calendar-date";
 			dateLabel.dateTime = dateKey;
 			dateLabel.textContent = String(day);
+            const holidayNames = holidays.get(dateKey);
+            if (holidayNames) {
+              dateCell.classList.add("is-holiday");
+              dateLabel.title = holidayNames.join(" · ");
+              dateLabel.setAttribute("aria-label", `${month + 1}월 ${day}일 ${holidayNames.join(", ")}`);
+            }
 			todoInput.className = "calendar-todo-input";
 			todoInput.rows = 2;
 			todoInput.setAttribute("aria-label", `${month + 1}월 ${day}일 할 일`);
