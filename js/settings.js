@@ -57,12 +57,39 @@ function renderCategories() {
   });
 }
 
+const PRESET_COLORS = [
+  "#7f9d87", "#b96e4f", "#78649b", "#4f8eb9", "#b9a24f", 
+  "#b94f7e", "#4fb9a2", "#8b4fb9", "#b98b4f", "#4f5bb9",
+  "#d97777", "#77a6d9", "#77d9b9", "#d9b977", "#a677d9"
+];
+
+// 아직 사용되지 않은 색상을 찾아 추천하는 함수
+function getNextSuggestedColor() {
+  const categories = getCategories();
+  const usedColors = categories.map(c => c.color.toLowerCase());
+  
+  // 사용되지 않은 프리셋 색상 찾기
+  const availableColor = PRESET_COLORS.find(color => !usedColors.includes(color.toLowerCase()));
+  
+  // 모든 팔레트 색상을 다 사용했다면 랜덤 색상 생성
+  if (availableColor) return availableColor;
+  
+  const letters = "0123456789ABCDEF";
+  let color = "#";
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+
 // 카테고리 추가
 function addCategory() {
   const name = prompt("카테고리 이름");
   if (!name?.trim()) return;
 
-  const color = prompt("색상 코드", "#7f9d87");
+  // 매번 다른 추천 색상을 기본값으로 제공
+  const suggestedColor = getNextSuggestedColor();
+  const color = prompt("색상 코드", suggestedColor);
   if (!/^#[0-9a-f]{6}$/i.test(color || "")) return;
 
   const categories = getCategories();

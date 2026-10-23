@@ -1,14 +1,13 @@
-
+// 오늘의 날짜 문자열 구하는 함수
 const today = () => {
   const date = new Date();
   return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
 };
 
-// 할 일 추가
+// 할 일 추가 매개변수(제목, 설명, 날짜, 중요도)
 function addTodo(title, description, dueDate, priority) {
   const todos = getTodos();
   const id = Number(localStorage.getItem("nextTodoId") || 1);
-
   todos.push({
     id,
     title,
@@ -18,7 +17,6 @@ function addTodo(title, description, dueDate, priority) {
     completed: false,
     completedAt: null
   });
-
   saveTodos(todos);
   localStorage.setItem("nextTodoId", Math.max(id, ...todos.map(t => t.id)) + 1);
   renderTodos();
@@ -39,6 +37,7 @@ function toggleTodo(id) {
 
 // 할 일 삭제
 function deleteTodo(id) {
+  // false라면 true가 되서 리턴
   if (!confirm("할 일을 삭제할까요?")) return;
   saveTodos(getTodos().filter(t => t.id !== id));
   renderTodos();
@@ -70,11 +69,9 @@ let currentFilter = "all";
 
 function filterView(type, element) {
   currentFilter = type;
-
   document.querySelectorAll(".stat").forEach(stat => {
     stat.classList.remove("is-active");
   });
-
   element.classList.add("is-active");
   renderTodos();
 }
@@ -82,16 +79,12 @@ function filterView(type, element) {
 // 할 일 추가 / 수정 입력
 function openTodoForm(id = null) {
   const todo = id === null ? null : getTodos().find(t => t.id === id);
-
   const title = prompt("할 일 제목", todo?.title || "");
   if (!title?.trim()) return;
-
   const description = prompt("설명", todo?.description || "");
   if (description === null) return;
-
   const dueDate = prompt("마감일 (YYYY-MM-DD)", todo?.dueDate || today());
   if (dueDate === null) return;
-
   if (dueDate && (!/^\d{4}-\d{2}-\d{2}$/.test(dueDate) ||
       isNaN(new Date(dueDate).getTime()) ||
       new Date(dueDate).toISOString().slice(0, 10) !== dueDate)) {
@@ -131,7 +124,6 @@ function renderTodos() {
 
   document.getElementById("active-list").parentElement.style.display =
     currentFilter === "completed" ? "none" : "";
-
   document.getElementById("completed-list").parentElement.style.display =
     currentFilter === "incomplete" ? "none" : "";
 }
@@ -154,7 +146,6 @@ function renderList(elementId, todos) {
   todos.forEach(todo => {
     const li = document.createElement("li");
     li.className = `todo-item ${todo.completed ? "completed" : ""}`;
-
     li.innerHTML = `
       <input type="checkbox" ${todo.completed ? "checked" : ""}>
       <div class="todo-info">
