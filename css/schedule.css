@@ -38,7 +38,7 @@ body {
   border: none;
   border-radius: 10px;
   background-color: var(--primary);
-  color: var(--card);
+  color: #ffffff;
   font-size: 15px;
   font-weight: 700;
   cursor: pointer;

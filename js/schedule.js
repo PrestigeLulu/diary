@@ -173,5 +173,11 @@ rows.addEventListener("click", function (e) {
   }
 });
 
+// js/theme.js
+document.documentElement.setAttribute(
+  "data-theme",
+  localStorage.getItem("theme") === "dark" ? "dark" : "light"
+);
+
 /* ---------- 첫 로딩 ---------- */
 renderSchedules();
