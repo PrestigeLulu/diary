@@ -86,6 +86,7 @@ if (
 		const firstWeekday = new Date(year, month, 1).getDay();
 		const daysInMonth = new Date(year, month + 1, 0).getDate();
 		const holidays = getCalendarHolidays(year);
+    const schedules = getSchedules();
 
 		monthHeading.textContent = new Intl.DateTimeFormat("ko-KR", {
 			year: "numeric",
@@ -130,9 +131,25 @@ if (
 			todoInput.className = "calendar-todo-input";
 			todoInput.rows = 2;
 			todoInput.setAttribute("aria-label", `${month + 1}월 ${day}일 할 일`);
-			window.bindCalendarTodo(todoInput, dateKey);
-			dateCell.append(dateLabel, todoInput);
+			bindCalendarTodo(todoInput, dateKey);
+			
+      const scheduleList = document.createElement("div");
+      scheduleList.className = "calendar-schedules";
 
+      schedules
+          .filter(schedule => schedule.date === dateKey)
+          .sort((a, b) => a.time.localeCompare(b.time))
+          .forEach(schedule => {
+              const event = document.createElement("div");
+              event.className = "calendar-event";
+
+              event.textContent = `${schedule.time} ${schedule.title}`;
+              event.title = `${schedule.title} (${schedule.category})`;
+
+              scheduleList.append(event);
+          });
+
+      dateCell.append(dateLabel, scheduleList, todoInput);
 			if (weekday === 0) dateCell.classList.add("is-sunday");
 			if (weekday === 6) dateCell.classList.add("is-saturday");
 			if (
@@ -145,8 +162,16 @@ if (
 			}
 
 			daysContainer.append(dateCell);
-		}
-	};
+        }
+
+        // 마지막 주의 빈 칸 채우기
+        while (daysContainer.children.length % 7 !== 0) {
+            const empty = document.createElement("span");
+            empty.className = "calendar-empty";
+            empty.setAttribute("aria-hidden", "true");
+            daysContainer.append(empty);
+        }
+    };  
 
 	previousMonthButton.addEventListener("click", () => {
 		displayedMonth = new Date(
@@ -173,9 +198,7 @@ if (
 const deadlineList = document.querySelector("#deadline-list");
 const deadlineMessage = document.querySelector("#deadline-message");
 function readDeadlineTodos() {
-  const todos = JSON.parse(localStorage.getItem("todos") || "[]");
-  if (!Array.isArray(todos)) throw new Error("잘못된 할 일 데이터");
-  return todos;
+  return getSchedules();
 }
 // 날짜 단위로 비교하여 시간대와 서머타임에 따른 오차를 방지합니다.
 function deadlineDay(value) {
@@ -184,45 +207,61 @@ function deadlineDay(value) {
   if (!Number.isFinite(date.getTime()) || date.toISOString().slice(0, 10) !== value) return null;
   return date.getTime() / 86400000;
 }
+
 function renderDeadlines() {
-  if (!deadlineList) return;
-  try {
-    const now = new Date();
-    const todayKey = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
-    const todayDay = deadlineDay(todayKey);
-    const todos = readDeadlineTodos()
-      .filter(todo => todo && !todo.completed && (todo.priority === "high" || deadlineDay(todo.dueDate) !== null))
-      .sort((a, b) => (deadlineDay(a.dueDate) ?? Infinity) - (deadlineDay(b.dueDate) ?? Infinity));
+    if (!deadlineList) return;
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const schedules = getSchedules()
+        .filter(s => s.date && !isNaN(new Date(`${s.date}T00:00:00`)))
+        .sort((a, b) =>
+            `${a.date} ${a.time || ""}`.localeCompare(`${b.date} ${b.time || ""}`)
+        );
+
     deadlineList.replaceChildren();
-    if (!todos.length) {
-      const empty = document.createElement("li");
-      empty.className = "deadline-empty";
-      empty.textContent = "중요하거나 마감일이 있는 미완료 할 일이 없습니다.";
-      deadlineList.append(empty);
+
+    if (!schedules.length) {
+        const empty = document.createElement("li");
+        empty.className = "deadline-empty";
+        empty.textContent = "등록된 일정이 없습니다.";
+        deadlineList.append(empty);
+        return;
     }
-    todos.forEach(todo => {
-      const item = document.createElement("li");
-      item.className = "deadline-item";
-      const info = document.createElement("div");
-      info.className = "deadline-info";
-      const title = document.createElement("strong");
-      title.textContent = `${todo.priority === "high" ? "★ " : ""}${todo.title}`;
-      const date = document.createElement("small");
-      const day = deadlineDay(todo.dueDate);
-      date.textContent = day === null ? "마감일 미지정" : `마감 ${todo.dueDate}`;
-      info.append(title, date);
-      const badge = document.createElement("span");
-      badge.className = "deadline-badge";
-      const remaining = day === null ? null : day - todayDay;
-      badge.textContent = remaining === null ? "중요" : remaining < 0 ? `${-remaining}일 지남` : remaining === 0 ? "D-Day" : `D-${remaining}`;
-      if (remaining !== null && remaining <= 3) badge.classList.add("is-urgent");
-      item.append(info, badge);
-      deadlineList.append(item);
+
+    schedules.forEach(schedule => {
+        const date = new Date(`${schedule.date}T00:00:00`);
+        const remaining = Math.round((date - today) / 86400000);
+
+        const item = document.createElement("li");
+        item.className = "deadline-item";
+
+        const info = document.createElement("div");
+        info.className = "deadline-info";
+
+        const title = document.createElement("strong");
+        title.textContent = schedule.title;
+
+        const detail = document.createElement("small");
+        detail.textContent = `${schedule.date} ${schedule.time || ""} · ${schedule.category || "일정"}`;
+
+        const badge = document.createElement("span");
+        badge.className = "deadline-badge";
+        badge.textContent =
+            remaining < 0 ? `${-remaining}일 지남` :
+            remaining === 0 ? "D-Day" : `D-${remaining}`;
+
+        if (remaining >= 0 && remaining <= 3) {
+            badge.classList.add("is-urgent");
+        }
+
+        info.append(title, detail);
+        item.append(info, badge);
+        deadlineList.append(item);
     });
-  } catch {
-    deadlineMessage.textContent = "저장된 할 일을 불러오지 못했습니다. 저장소 설정을 확인해 주세요.";
-  }
 }
+
 if (deadlineList) {
   window.addEventListener("storage", renderDeadlines);
   window.addEventListener("focus", renderDeadlines);
@@ -302,3 +341,5 @@ if (encouragementElement) {
   // 자정이 지난 뒤에도 페이지를 새로 열지 않고 글귀를 갱신합니다.
   setInterval(renderDailyEncouragement, 60000);
 }
+
+window.addEventListener("schedules-updated", renderDeadlines);
