@@ -44,13 +44,6 @@ body {
   cursor: pointer;
 }
 
-/* 아이콘 (HTML의 class="box-icon"과 이름 일치) */
-.box-icon {
-  width: 20px;
-  height: 20px;
-  flex: 0 0 auto;
-}
-
 /* 필터 줄 */
 .scheduleFilters {
   display: flex;
@@ -70,12 +63,14 @@ body {
   background-color: var(--card);
   font-size: 14px;
   cursor: pointer;
+  position: relative;      /* 드롭다운 목록의 기준 */
+  user-select: none;
 }
 
 .filterArrow {
-  width: 8px;
-  height: 8px;
-  margin-left: 4px;
+  width: 7px;
+  height: 7px;
+  margin: 0 2px 3px 4px;
   border-right: 2px solid var(--text-muted);
   border-bottom: 2px solid var(--text-muted);
   transform: rotate(45deg);     /* ⌄ 모양 */
@@ -85,6 +80,45 @@ body {
 /* 목록이 열렸을 때 상하반전 (⌃) */
 .filterBox.open .filterArrow {
   transform: rotate(-135deg);
+  margin-bottom: -3px;
+}
+
+.filterList {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 100%;
+  max-height: 260px;
+  overflow-y: auto;
+  margin-top: 6px;
+  padding: 6px;
+  list-style: none;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+}
+
+.filterBox.open .filterList {
+  display: block;
+}
+
+.filterList li {
+  padding: 9px 12px;
+  border-radius: 8px;
+  white-space: nowrap;
+  font-size: 14px;
+  color: var(--text);
+}
+
+.filterList li:hover {
+  background: var(--primary-light);
+}
+
+.filterList li.selected {
+  font-weight: 700;
 }
 
 .filterLabel {
@@ -218,11 +252,6 @@ body {
   color: #b46a67;
 }
 
-/* 카테고리 점 색 */
-.category-dot.업무 { background-color: #6f9a78; }
-.category-dot.약속 { background-color: #b5654f; }
-.category-dot.건강 { background-color: #7a6a9a; }
-
 /* 일정이 없을 때 */
 .scheduleEmpty {
   padding: 40px;
@@ -249,9 +278,4 @@ body {
 
 [data-theme="dark"] .icon-button:hover {
   opacity: 0.7;
-}
-
-[data-theme="dark"] .sidebar-icon,
-[data-theme="dark"] .filterBox .box-icon {
-  filter: invert(1) brightness(0.9);
 }

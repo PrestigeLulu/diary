@@ -23,7 +23,7 @@
           <img class="sidebar-icon" src="./assets/images/calendar.svg" alt="">
           <span>캘린더</span>
         </a>
-        <a class="sidebar-link" href="./schedule.html">
+        <a class="sidebar-link is-active" href="./schedule.html">
           <img class="sidebar-icon" src="./assets/images/calendar.svg" alt="">
           <span>일정</span>
         </a>
@@ -31,7 +31,7 @@
           <img class="sidebar-icon" src="./assets/images/check-circle.svg" alt="">
           <span>할 일</span>
         </a>
-        <a class="sidebar-link is-active" href="./settings.html">
+        <a class="sidebar-link" href="./settings.html">
           <img class="sidebar-icon" src="./assets/images/settings.svg" alt="">
           <span>설정</span>
         </a>
@@ -46,7 +46,7 @@
     </aside>
 
       <!-- 오른쪽 캘린더 페이지 본문 영역 -->
-      <main class="page-content" aria-label="캘린더 페이지"></main>
+    <main class="page-content" aria-label="캘린더 페이지"></main>
   </div>
 
   <!-- 사이드바 오른쪽 본문 영역 -->
@@ -66,18 +66,22 @@
 
     <!-- 필터 -->
     <div class="scheduleFilters">
-      <div class="filterBox">
-        <img class="box-icon" src="./assets/images/calendar.svg" alt="" />
+      <div class="filterBox" id="dateFilter">
+        <img class="sidebar-icon" src="./assets/images/calendar.svg" alt="" />
         <span class="filterLabel">날짜</span>
-        <span class="filterValue">2026년 9월</span>
+        <span class="filterValue">전체</span>
         <span class="filterArrow"></span>
+        <ul class="filterList"></ul>
       </div>
-      <div class="filterBox">
-        <img class="box-icon" src="./assets/images/tag.svg" alt="" />
+
+      <div class="filterBox" id="categoryFilter">
+        <img class="sidebar-icon" src="./assets/images/tag.svg" alt="" />
         <span class="filterLabel">카테고리</span>
         <span class="filterValue">전체</span>
         <span class="filterArrow"></span>
+        <ul class="filterList"></ul>
       </div>
+
       <span class="scheduleCount">총 0개의 일정</span>
     </div>
 
@@ -97,5 +101,6 @@
   <!-- 순서 중요 -->
   <script src="./js/storage.js"></script>
   <script src="./js/schedule.js"></script>
+  <script src="./js/main.js"></script>
 </body>
 </html>
