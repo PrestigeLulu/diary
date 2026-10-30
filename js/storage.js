@@ -4,6 +4,7 @@ function getSchedules() {
 
 function saveSchedules(schedules) {
   localStorage.setItem("schedules", JSON.stringify(schedules));
+  window.dispatchEvent(new Event("schedules-updated"));
 }
 
 function getTodos() {

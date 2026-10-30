@@ -1,3 +1,13 @@
+function resetTodosDaily() {
+  const lastDate = localStorage.getItem("lastTodoDate");
+  const currentDate = today();
+
+  if (lastDate !== currentDate) {
+    saveTodos([]);
+    localStorage.setItem("lastTodoDate", currentDate);
+  }
+}
+
 // 오늘의 날짜 문자열 구하는 함수
 const today = () => {
   const date = new Date();
@@ -5,14 +15,13 @@ const today = () => {
 };
 
 // 할 일 추가 매개변수(제목, 설명, 날짜, 중요도)
-function addTodo(title, description, dueDate, priority) {
+function addTodo(title, description, priority) {
   const todos = getTodos();
   const id = Number(localStorage.getItem("nextTodoId") || 1);
   todos.push({
     id,
     title,
     description,
-    dueDate,
     priority,
     completed: false,
     completedAt: null
@@ -44,14 +53,13 @@ function deleteTodo(id) {
 }
 
 // 할 일 수정
-function updateTodo(id, title, description, dueDate, priority) {
+function updateTodo(id, title, description, priority) {
   const todos = getTodos();
   const todo = todos.find(t => t.id === id);
   if (!todo) return;
 
   todo.title = title;
   todo.description = description;
-  todo.dueDate = dueDate;
   todo.priority = priority;
 
   saveTodos(todos);
@@ -83,14 +91,6 @@ function openTodoForm(id = null) {
   if (!title?.trim()) return;
   const description = prompt("설명", todo?.description || "");
   if (description === null) return;
-  const dueDate = prompt("마감일 (YYYY-MM-DD)", todo?.dueDate || today());
-  if (dueDate === null) return;
-  if (dueDate && (!/^\d{4}-\d{2}-\d{2}$/.test(dueDate) ||
-      isNaN(new Date(dueDate).getTime()) ||
-      new Date(dueDate).toISOString().slice(0, 10) !== dueDate)) {
-    alert("올바른 날짜를 입력하세요.");
-    return;
-  }
 
   const priority = prompt("우선순위 (high / medium / low)", todo?.priority || "medium");
   if (!["high", "medium", "low"].includes(priority)) {
@@ -99,9 +99,9 @@ function openTodoForm(id = null) {
   }
 
   if (todo) {
-    updateTodo(id, title.trim(), description, dueDate, priority);
+    updateTodo(id, title.trim(), description, priority);
   } else {
-    addTodo(title.trim(), description, dueDate, priority);
+    addTodo(title.trim(), description, priority);
   }
 }
 
@@ -152,7 +152,6 @@ function renderList(elementId, todos) {
         <strong></strong>
         <p></p>
       </div>
-      <span class="todo-date"></span>
       <span class="priority ${["high", "medium", "low"].includes(todo.priority) ? todo.priority : "medium"}"></span>
       <button class="todo-edit" type="button">✎</button>
       <button class="todo-delete" type="button">×</button>
@@ -160,8 +159,6 @@ function renderList(elementId, todos) {
 
     li.querySelector("strong").textContent = todo.title;
     li.querySelector("p").textContent = todo.description;
-    li.querySelector(".todo-date").textContent =
-      todo.dueDate === today() ? "오늘" : todo.dueDate || "날짜 없음";
     li.querySelector(".priority").textContent =
       priorityNames[todo.priority] || "보통";
 
@@ -175,6 +172,13 @@ function renderList(elementId, todos) {
 
 // 초기 화면 출력
 document.addEventListener("DOMContentLoaded", () => {
+  resetTodosDaily();
   document.getElementById("add-todo").onclick = () => openTodoForm();
   renderTodos();
+  setInterval(() => {
+    if (localStorage.getItem("lastTodoDate") !== today()) {
+      resetTodosDaily();
+      renderTodos();
+    }
+  }, 60000);
 });
