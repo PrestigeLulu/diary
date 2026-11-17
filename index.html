@@ -1,15 +1,20 @@
 <!doctype html>
 <html lang="ko">
   <head>
+    <!-- 한글 인코딩과 모바일 화면 크기를 설정함 -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>다이어리 - 9조</title>
+    <!-- 공통 스타일과 달력 전용 스타일을 불러옴 -->
     <link rel="stylesheet" href="./css/common.css" />
     <link rel="stylesheet" href="./css/calendar.css" />
   </head>
   <body>
+    <!-- 왼쪽 사이드바와 오른쪽 본문을 하나의 화면으로 묶음 -->
     <div class="app-layout">
+      <!-- 페이지 이동 메뉴와 프로필을 사이드바에 표시함 -->
       <aside class="sidebar">
+      <!-- 로고를 누르면 캘린더 첫 화면으로 이동함 -->
       <a class="sidebar-brand" href="./index.html">
         <span class="brand-icon">
           <img src="./assets/images/book-open.svg" alt="">
@@ -17,6 +22,7 @@
         <span class="brand-name">다이어리</span>
       </a>
 
+      <!-- 각 페이지로 이동하는 메뉴. 현재 페이지는 is-active로 표시함 -->
       <nav class="sidebar-nav">
         <a class="sidebar-link is-active" href="./index.html">
           <img class="sidebar-icon" src="./assets/images/calendar.svg" alt="">
@@ -36,6 +42,7 @@
         </a>
       </nav>
 
+      <!-- 저장된 이름과 학번이 main.js에서 채워짐 -->
       <div class="sidebar-profile">
         <span class="profile-avatar"></span>
         <div>
@@ -45,40 +52,48 @@
       </div>
     </aside>
 
-      <!-- 오른쪽 캘린더 페이지 본문 영역 -->
+      <!-- 오른쪽 본문에 응원 문구와 월간 달력, 마감일 패널을 배치함 -->
       <main class="page-content" aria-label="캘린더 페이지">
-        <!-- 날짜마다 새로 선택되는 짧은 응원 글귀 -->
+        <!-- 하루 동안 같은 응원 문구가 표시되고 날짜가 바뀌면 새로 선택됨 -->
         <aside class="daily-encouragement" aria-label="오늘의 응원">
           <span class="daily-encouragement-label">오늘의 한마디</span>
           <p id="daily-encouragement" aria-live="polite">오늘도 당신의 속도로, 한 걸음씩 나아가요.</p>
         </aside>
+        <!-- 월간 달력 영역. 제목과 날짜 칸은 calendar.js에서 채워짐 -->
         <section class="month-calendar" aria-labelledby="calendar-month">
+          <!-- 현재 연월을 표시하고 양쪽 버튼으로 이전 달과 다음 달로 이동함 -->
           <header class="calendar-header">
             <button class="calendar-nav" id="previous-month" type="button" aria-label="이전 달">&#x2039;</button>
             <h1 id="calendar-month" class="calendar-month" aria-live="polite"></h1>
             <button class="calendar-nav" id="next-month" type="button" aria-label="다음 달">&#x203A;</button>
           </header>
+          <!-- 할 일을 불러오거나 저장하는 데 실패하면 안내 문구가 표시됨 -->
           <p id="calendar-save-status" class="calendar-save-status" role="status" hidden></p>
+          <!-- 요일 줄과 날짜별 일정, 할 일 입력란이 자바스크립트로 생성됨 -->
           <div class="calendar-weekdays" aria-hidden="true"></div>
           <div class="calendar-days"></div>
         </section>
-        <!-- 하단 바를 누르면 화면 중간까지 펼쳐지는 할 일 목록 -->
+        <!-- 마감일 패널 뒤쪽에 표시되는 배경. 클릭하면 패널이 닫힘 -->
         <div class="deadline-backdrop" id="deadline-backdrop" hidden></div>
+        <!-- 하단 버튼으로 마감일 패널을 열고 닫음 -->
         <section class="deadline-panel" id="deadline-panel" aria-label="중요한 할 일과 마감일">
           <button class="deadline-toggle" id="deadline-toggle" type="button" aria-expanded="false" aria-controls="deadline-content">
             <span class="deadline-handle" aria-hidden="true"></span>
             <span>중요한 할 일 · 마감일</span>
             <span class="deadline-arrow" aria-hidden="true">⌃</span>
           </button>
+          <!-- 패널이 닫혀 있을 때는 inert로 내부 클릭과 키보드 접근을 막음 -->
           <div class="deadline-content" id="deadline-content" inert>
 
           <p>마감이 가까운 순서로 표시합니다. 마감일이 없는 할 일은 마지막에 표시합니다.</p>
           <p id="deadline-message" role="status"></p>
+          <!-- 저장된 일정과 남은 날짜가 calendar.js에서 목록으로 추가됨 -->
           <ul id="deadline-list" class="deadline-list" aria-label="중요한 할 일과 남은 기한"></ul>
           </div>
         </section>
       </main>
     </div>
+    <!-- 저장 기능, 공통 기능, 달력 기능 순서로 불러옴 -->
     <script src="./js/storage.js"></script>
     <script src="./js/main.js"></script>
     <script src="./js/calendar.js"></script>

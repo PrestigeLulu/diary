@@ -1,10 +1,13 @@
-// 공휴일 계산 결과를 연도별로 보관합니다. 외부 요청 없이 HTML 파일에서도 동작합니다.
+// ===== 공휴일 계산 =====
+// 한 번 계산한 공휴일은 연도별로 저장해 두고 다시 사용함
 const calendarHolidayCache = new Map();
 function getCalendarHolidays(year) {
   if (calendarHolidayCache.has(year)) return calendarHolidayCache.get(year);
+  // 날짜별 공휴일 이름과 연휴 묶음을 따로 보관함
   const holidays = new Map();
   const groups = [];
   const keyOf = date => date.toISOString().slice(0, 10);
+  // 같은 날짜에 공휴일이 겹치면 이름을 모두 넣음
   const addGroup = (name, dates, substitute = "none") => {
     groups.push({ name, dates, substitute });
     dates.forEach(date => {
@@ -12,6 +15,7 @@ function getCalendarHolidays(year) {
       holidays.set(key, [...(holidays.get(key) || []), name]);
     });
   };
+  // 양력 공휴일 등록. 대체공휴일 적용 여부는 연도별로 구분함
   const solar = (month, day) => new Date(Date.UTC(year, month - 1, day));
   const nationalSubstitute = year >= 2022 ? "weekend" : "none";
   addGroup("신정", [solar(1, 1)]);
@@ -22,14 +26,14 @@ function getCalendarHolidays(year) {
   addGroup("개천절", [solar(10, 3)], year >= 2021 ? "weekend" : "none");
   if (year >= 2013) addGroup("한글날", [solar(10, 9)], year >= 2021 ? "weekend" : "none");
   addGroup("성탄절", [solar(12, 25)], year >= 2023 ? "weekend" : "none");
-  // 2026년 공휴일 지정 사항 반영.
+  // 2026년 공휴일 지정 사항 반영함
   if (year >= 2026) {
     addGroup("노동절", [solar(5, 1)], "weekend");
     addGroup("제헌절", [solar(7, 17)], "weekend");
   }
   if (year === 2026) addGroup("전국동시지방선거", [solar(6, 3)]);
 
-  // 한국 음력(dangi)으로 설날, 부처님오신날, 추석을 찾습니다. 윤달은 제외합니다.
+  // 1년을 하루씩 확인하면서 음력 공휴일 찾음. 윤달은 제외함
   const lunar = new Intl.DateTimeFormat("en-u-ca-dangi", {
     month: "numeric", day: "numeric", timeZone: "Asia/Seoul"
   });
@@ -45,7 +49,7 @@ function getCalendarHolidays(year) {
       addGroup("부처님오신날", [new Date(date)], year >= 2023 ? "weekend" : "none");
     }
   }
-  // 설·추석은 토요일만 겹칠 때 대체하지 않습니다. 신정·현충일도 대체 대상이 아닙니다.
+  // 대체 대상인 공휴일이 주말이나 다른 공휴일과 겹치면 다음 빈 평일 찾음
   groups.sort((a, b) => a.dates[0] - b.dates[0]).forEach(group => {
     if (group.substitute === "none") return;
     const overlaps = group.dates.some(date => {
@@ -59,10 +63,13 @@ function getCalendarHolidays(year) {
     while (substitute.getUTCDay() === 0 || substitute.getUTCDay() === 6 || holidays.has(keyOf(substitute)));
     holidays.set(keyOf(substitute), [`대체공휴일 (${group.name})`]);
   });
+  // 계산이 끝난 연도는 다음에 바로 꺼내 쓸 수 있게 저장함
   calendarHolidayCache.set(year, holidays);
   return holidays;
 }
 
+// ===== 월간 달력 표시 =====
+// 달력 제목, 요일 줄, 날짜 칸, 월 이동 버튼 가져옴
 const monthHeading = document.querySelector(".calendar-month");
 const weekdaysContainer = document.querySelector(".calendar-weekdays");
 const daysContainer = document.querySelector(".calendar-days");
@@ -80,6 +87,7 @@ if (
 	let displayedMonth = new Date(today.getFullYear(), today.getMonth(), 1);
 	const weekdays = ["일", "월", "화", "수", "목", "금", "토"];
 
+	// 현재 보고 있는 달에 맞춰 달력 다시 그림
 	const renderCalendar = () => {
 		const year = displayedMonth.getFullYear();
 		const month = displayedMonth.getMonth();
@@ -88,6 +96,7 @@ if (
 		const holidays = getCalendarHolidays(year);
     const schedules = getSchedules();
 
+		// 상단 연월을 바꾸고 이전에 그린 요일과 날짜 칸 비움
 		monthHeading.textContent = new Intl.DateTimeFormat("ko-KR", {
 			year: "numeric",
 			month: "long",
@@ -96,6 +105,7 @@ if (
 		weekdaysContainer.replaceChildren();
 		daysContainer.replaceChildren();
 
+		// 일요일부터 토요일까지 요일 줄 생성함
 		weekdays.forEach((weekday, index) => {
 			const label = document.createElement("span");
 			label.className = "calendar-weekday";
@@ -105,6 +115,7 @@ if (
 			weekdaysContainer.append(label);
 		});
 
+		// 1일이 시작하는 요일 앞까지 빈 칸 채움
 		for (let cell = 0; cell < firstWeekday; cell += 1) {
 			const emptyCell = document.createElement("span");
 			emptyCell.className = "calendar-empty";
@@ -112,6 +123,7 @@ if (
 			daysContainer.append(emptyCell);
 		}
 
+		// 1일부터 마지막 날까지 날짜 칸 생성함
 		for (let day = 1; day <= daysInMonth; day += 1) {
 			const dateCell = document.createElement("div");
 			const dateLabel = document.createElement("time");
@@ -122,12 +134,14 @@ if (
 			dateLabel.className = "calendar-date";
 			dateLabel.dateTime = dateKey;
 			dateLabel.textContent = String(day);
+            // 공휴일이면 강조 표시하고 날짜에 공휴일 이름 붙임
             const holidayNames = holidays.get(dateKey);
             if (holidayNames) {
               dateCell.classList.add("is-holiday");
               dateLabel.title = holidayNames.join(" · ");
               dateLabel.setAttribute("aria-label", `${month + 1}월 ${day}일 ${holidayNames.join(", ")}`);
             }
+			// 날짜별 할 일 입력란을 저장 기능에 연결함
 			todoInput.className = "calendar-todo-input";
 			todoInput.rows = 2;
 			todoInput.setAttribute("aria-label", `${month + 1}월 ${day}일 할 일`);
@@ -136,6 +150,7 @@ if (
       const scheduleList = document.createElement("div");
       scheduleList.className = "calendar-schedules";
 
+      // 이 날짜의 일정만 골라 시간순으로 표시함
       schedules
           .filter(schedule => schedule.date === dateKey)
           .sort((a, b) => a.time.localeCompare(b.time))
@@ -149,6 +164,7 @@ if (
               scheduleList.append(event);
           });
 
+      // 날짜, 일정, 할 일을 한 칸에 넣고 주말과 오늘 날짜 표시함
       dateCell.append(dateLabel, scheduleList, todoInput);
 			if (weekday === 0) dateCell.classList.add("is-sunday");
 			if (weekday === 6) dateCell.classList.add("is-saturday");
@@ -164,7 +180,7 @@ if (
 			daysContainer.append(dateCell);
         }
 
-        // 마지막 주의 빈 칸 채우기
+        // 마지막 주의 빈 칸 채움
         while (daysContainer.children.length % 7 !== 0) {
             const empty = document.createElement("span");
             empty.className = "calendar-empty";
@@ -173,6 +189,7 @@ if (
         }
     };  
 
+	// 이전 달 버튼: 한 달 뒤로 이동한 뒤 달력 다시 그림
 	previousMonthButton.addEventListener("click", () => {
 		displayedMonth = new Date(
 			displayedMonth.getFullYear(),
@@ -182,6 +199,7 @@ if (
 		renderCalendar();
 	});
 
+	// 다음 달 버튼: 한 달 앞으로 이동함
 	nextMonthButton.addEventListener("click", () => {
 		displayedMonth = new Date(
 			displayedMonth.getFullYear(),
@@ -194,13 +212,14 @@ if (
 	renderCalendar();
 }
 
-// 기존 할 일 저장소를 공유하고, 미완료인 중요 항목과 마감일을 표시합니다.
+// ===== 일정 및 마감일 목록 =====
+// 저장된 일정과 D-Day를 보여 줄 목록을 가져옴
 const deadlineList = document.querySelector("#deadline-list");
 const deadlineMessage = document.querySelector("#deadline-message");
 function readDeadlineTodos() {
   return getSchedules();
 }
-// 날짜 단위로 비교하여 시간대와 서머타임에 따른 오차를 방지합니다.
+// 날짜 형식을 확인하고 일 단위 숫자로 바꿈
 function deadlineDay(value) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(value || "")) return null;
   const date = new Date(`${value}T00:00:00Z`);
@@ -208,6 +227,7 @@ function deadlineDay(value) {
   return date.getTime() / 86400000;
 }
 
+// 날짜가 유효한 일정을 날짜·시간순으로 정렬해 마감 목록 생성함
 function renderDeadlines() {
     if (!deadlineList) return;
 
@@ -222,6 +242,7 @@ function renderDeadlines() {
 
     deadlineList.replaceChildren();
 
+    // 일정이 없으면 안내 문구만 표시함
     if (!schedules.length) {
         const empty = document.createElement("li");
         empty.className = "deadline-empty";
@@ -231,6 +252,7 @@ function renderDeadlines() {
     }
 
     schedules.forEach(schedule => {
+        // 오늘부터 며칠 남았는지 계산함. 지난 일정은 음수로 나옴
         const date = new Date(`${schedule.date}T00:00:00`);
         const remaining = Math.round((date - today) / 86400000);
 
@@ -246,12 +268,14 @@ function renderDeadlines() {
         const detail = document.createElement("small");
         detail.textContent = `${schedule.date} ${schedule.time || ""} · ${schedule.category || "일정"}`;
 
+        // 지난 날짜는 경과 일수, 오늘은 D-Day, 이후는 D-남은 일수로 표시함
         const badge = document.createElement("span");
         badge.className = "deadline-badge";
         badge.textContent =
             remaining < 0 ? `${-remaining}일 지남` :
             remaining === 0 ? "D-Day" : `D-${remaining}`;
 
+        // 오늘부터 3일 안에 잡힌 일정은 눈에 띄게 표시함
         if (remaining >= 0 && remaining <= 3) {
             badge.classList.add("is-urgent");
         }
@@ -262,19 +286,22 @@ function renderDeadlines() {
     });
 }
 
+// 다른 탭에서 저장했거나 이 창으로 돌아왔을 때 목록 새로 불러옴
 if (deadlineList) {
   window.addEventListener("storage", renderDeadlines);
   window.addEventListener("focus", renderDeadlines);
-  // 페이지를 계속 열어 두어도 자정 이후 남은 기한을 갱신합니다.
+  // 날짜가 바뀐 경우를 위해 1분마다 남은 날짜 다시 계산함
   setInterval(renderDeadlines, 60000);
   renderDeadlines();
 }
-// 하단 바를 누르면 목록을 펼치고, 바깥 영역이나 Esc 키로 닫습니다.
+// ===== 마감일 패널 열기/닫기 =====
+// 패널과 열기 버튼, 내용 영역, 뒤쪽 배경 가져옴
 const deadlinePanel = document.querySelector("#deadline-panel");
 const deadlineToggle = document.querySelector("#deadline-toggle");
 const deadlineContent = document.querySelector("#deadline-content");
 const deadlineBackdrop = document.querySelector("#deadline-backdrop");
 if (deadlinePanel && deadlineToggle && deadlineContent && deadlineBackdrop) {
+  // 패널 표시와 버튼 상태를 함께 변경함. 닫힌 내용은 키보드로 접근하지 못하게 처리함
   function setDeadlineOpen(open) {
     deadlinePanel.classList.toggle("is-open", open);
     deadlineToggle.setAttribute("aria-expanded", String(open));
@@ -283,6 +310,7 @@ if (deadlinePanel && deadlineToggle && deadlineContent && deadlineBackdrop) {
     if (open) renderDeadlines();
     else if (deadlineContent.contains(document.activeElement)) deadlineToggle.focus();
   }
+  // 버튼으로 열고 닫음. 배경을 누르거나 Esc를 눌러도 닫힘
   deadlineToggle.addEventListener("click", () => {
     setDeadlineOpen(deadlineToggle.getAttribute("aria-expanded") !== "true");
   });
@@ -294,7 +322,8 @@ if (deadlinePanel && deadlineToggle && deadlineContent && deadlineBackdrop) {
     }
   });
 }
-// 하루 동안 같은 글귀를 유지하고, 다음 날에는 직전과 다른 글귀를 선택합니다.
+// ===== 오늘의 응원 문구 =====
+// 오늘 보여 줄 문구 후보. 하루 동안은 같은 문구 사용함
 const encouragementElement = document.querySelector("#daily-encouragement");
 const encouragementQuotes = [
   "오늘도 당신의 속도로, 한 걸음씩 나아가요.",
@@ -315,31 +344,35 @@ function renderDailyEncouragement() {
   if (!encouragementElement) return;
   const now = new Date();
   const date = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+  // 저장된 문구가 후보 목록에 있으면 그대로 사용함
   let saved = dailyEncouragement;
   try {
     const stored = JSON.parse(localStorage.getItem("diary-daily-encouragement"));
     if (stored && encouragementQuotes.includes(stored.quote)) saved = stored;
   } catch {
-    // 저장소를 사용할 수 없어도 현재 페이지에서는 글귀를 표시합니다.
+    // 저장된 값을 못 읽으면 이 페이지에서 기억해 둔 문구 사용함
   }
+  // 날짜가 바뀌었으면 직전 문구를 빼고 무작위로 하나 뽑음
   if (!saved || saved.date !== date) {
     const candidates = encouragementQuotes.filter(quote => quote !== saved?.quote);
     saved = { date, quote: candidates[Math.floor(Math.random() * candidates.length)] };
     try {
       localStorage.setItem("diary-daily-encouragement", JSON.stringify(saved));
     } catch {
-      // 저장이 제한된 환경에서는 메모리에 보관합니다.
+      // 저장이 안 돼도 아래 변수에 담아 페이지가 열린 동안 유지함
     }
   }
   dailyEncouragement = saved;
   encouragementElement.textContent = saved.quote;
 }
+// 처음 문구를 띄우고, 창으로 돌아오거나 다른 탭에서 저장하면 다시 확인함
 if (encouragementElement) {
   renderDailyEncouragement();
   window.addEventListener("focus", renderDailyEncouragement);
   window.addEventListener("storage", renderDailyEncouragement);
-  // 자정이 지난 뒤에도 페이지를 새로 열지 않고 글귀를 갱신합니다.
+  // 페이지를 열어 둔 채 날짜가 바뀌어도 1분마다 문구 확인함
   setInterval(renderDailyEncouragement, 60000);
 }
 
+// 같은 페이지에서 일정을 수정한 경우에도 마감 목록 갱신함
 window.addEventListener("schedules-updated", renderDeadlines);
