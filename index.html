@@ -4,12 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>다이어리 - 9조</title>
+    <!-- 공통 css와 캘린더 css 불러오기 -->
     <link rel="stylesheet" href="./css/common.css" />
     <link rel="stylesheet" href="./css/calendar.css" />
   </head>
   <body>
+    <!-- 전체 레이아웃 담당 -->
     <div class="app-layout">
+      <!-- 왼쪽에 사이드바 -->
       <aside class="sidebar">
+      <!-- 로고를 누르면 index.html로 이동 -->
       <a class="sidebar-brand" href="./index.html">
         <span class="brand-icon">
           <img src="./assets/images/book-open.svg" alt="">
@@ -17,6 +21,7 @@
         <span class="brand-name">다이어리</span>
       </a>
 
+      <!-- 사이드바 메뉴를 누르면 대응되는 페이지로 이동 -->
       <nav class="sidebar-nav">
         <a class="sidebar-link is-active" href="./index.html">
           <img class="sidebar-icon" src="./assets/images/calendar.svg" alt="">
@@ -36,6 +41,7 @@
         </a>
       </nav>
 
+      <!-- 사이드바 하단에 나의 이름과 학번 표시 -->
       <div class="sidebar-profile">
         <span class="profile-avatar"></span>
         <div>
@@ -52,33 +58,43 @@
           <span class="daily-encouragement-label">오늘의 한마디</span>
           <p id="daily-encouragement" aria-live="polite">오늘도 당신의 속도로, 한 걸음씩 나아가요.</p>
         </aside>
+        <!-- 선택한 달의 날짜와 일정, 날짜별 메모를 보여주는 영역 -->
         <section class="month-calendar" aria-labelledby="calendar-month">
+          <!-- 이전 달과 다음 달 이동 버튼, 현재 표시 중인 월 -->
           <header class="calendar-header">
             <button class="calendar-nav" id="previous-month" type="button" aria-label="이전 달">&#x2039;</button>
             <h1 id="calendar-month" class="calendar-month" aria-live="polite"></h1>
             <button class="calendar-nav" id="next-month" type="button" aria-label="다음 달">&#x203A;</button>
           </header>
+          <!-- 메모를 불러오거나 저장하지 못했을 때 안내 문구 표시 -->
           <p id="calendar-save-status" class="calendar-save-status" role="status" hidden></p>
+          <!-- 자바스크립트로 요일 이름을 추가할 영역 -->
           <div class="calendar-weekdays" aria-hidden="true"></div>
+          <!-- 자바스크립트로 날짜 칸과 일정, 메모 입력창을 추가할 영역 -->
           <div class="calendar-days"></div>
         </section>
         <!-- 하단 바를 누르면 화면 중간까지 펼쳐지는 할 일 목록 -->
+        <!-- 마감 목록을 펼쳤을 때 뒤쪽을 덮고 클릭하면 목록을 닫는 영역 -->
         <div class="deadline-backdrop" id="deadline-backdrop" hidden></div>
         <section class="deadline-panel" id="deadline-panel" aria-label="중요한 할 일과 마감일">
+          <!-- 하단의 마감 목록을 펼치거나 접는 버튼 -->
           <button class="deadline-toggle" id="deadline-toggle" type="button" aria-expanded="false" aria-controls="deadline-content">
             <span class="deadline-handle" aria-hidden="true"></span>
             <span>중요한 할 일 · 마감일</span>
             <span class="deadline-arrow" aria-hidden="true">⌃</span>
           </button>
+          <!-- 접혀 있을 때는 내부 요소를 조작하지 못하도록 inert 적용 -->
           <div class="deadline-content" id="deadline-content" inert>
 
           <p>마감이 가까운 순서로 표시합니다. 마감일이 없는 할 일은 마지막에 표시합니다.</p>
           <p id="deadline-message" role="status"></p>
+          <!-- 자바스크립트로 일정과 남은 날짜를 추가할 목록 -->
           <ul id="deadline-list" class="deadline-list" aria-label="중요한 할 일과 남은 기한"></ul>
           </div>
         </section>
       </main>
     </div>
+    <!-- 일정 저장 함수를 먼저 불러오고 화면에 필요한 js 실행 -->
     <script src="./js/storage.js"></script>
     <script src="./js/main.js"></script>
     <script src="./js/calendar.js"></script>

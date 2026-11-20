@@ -1,10 +1,12 @@
 
+/* 모든 요소의 기본 여백을 없애고 테두리까지 크기 계산에 포함 */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* 라이트 테마에서 공통으로 사용할 배경과 글자, 강조 색상 정의 */
 :root {
   --bg: #F6F7F2;
   --sidebar: #EEF1E9;
@@ -16,6 +18,7 @@
   --border: #D0D3D0;
 }
 
+/* 전체 페이지의 기본 글꼴과 배경색, 최소 높이 지정 */
 body {
   min-height: 100vh;
   font-family: Arial, sans-serif;
@@ -23,6 +26,7 @@ body {
   background: var(--bg);
 }
 
+/* 링크는 주변 글자색을 따르고 기본 밑줄 제거 */
 a {
   color: inherit;
   text-decoration: none;
@@ -46,6 +50,7 @@ a {
   flex-direction: column;
 }
 
+/* 로고 아이콘과 다이어리 이름을 가로로 배치 */
 .sidebar-brand {
   display: flex;
   align-items: center;
@@ -53,6 +58,7 @@ a {
   margin-bottom: 36px;
 }
 
+/* 로고 아이콘을 둥근 사각형 안의 가운데에 배치 */
 .brand-icon {
   width: 34px;
   height: 34px;
@@ -63,11 +69,13 @@ a {
   justify-content: center;
 }
 
+/* 로고 이미지 크기 지정 */
 .brand-icon img {
   width: 21px;
   height: 21px;
 }
 
+/* 다이어리 이름의 글자 크기와 굵기 지정 */
 .brand-name {
   font-size: 21px;
   font-weight: bold;
@@ -81,6 +89,7 @@ a {
   gap: 10px;
 }
 
+/* 메뉴 아이콘과 이름을 가로로 배치하고 클릭 영역에 여백 추가 */
 .sidebar-link {
   display: flex;
   align-items: center;
@@ -92,16 +101,19 @@ a {
   font-weight: bold;
 }
 
+/* 마우스를 올린 사이드바 메뉴의 배경 강조 */
 .sidebar-link:hover {
   background: white;
 }
 
+/* 현재 페이지에 해당하는 메뉴를 활성 상태로 표시 */
 .sidebar-link.is-active,
 .sidebar-link.active {
   background: white;
   color: var(--text);
 }
 
+/* 사이드바 메뉴 아이콘의 크기를 동일하게 지정 */
 .sidebar-icon {
   width: 20px;
   height: 20px;
@@ -116,6 +128,7 @@ a {
   margin-top: auto;
 }
 
+/* 프로필 사진 대신 사용할 원형 배경 표시 */
 .profile-avatar {
   width: 36px;
   height: 36px;
@@ -123,11 +136,14 @@ a {
   background: var(--primary-light);
 }
 
+/* 프로필 이름과 학번을 각각 한 줄씩 표시 */
 .sidebar-profile strong,
+/* 프로필 보조 글자를 작은 크기와 흐린 색으로 표시 */
 .sidebar-profile span {
   display: block;
 }
 
+/* 프로필 이름의 글자 크기와 아래 여백 지정 */
 .sidebar-profile strong {
   font-size: 13px;
   margin-bottom: 4px;
@@ -138,6 +154,7 @@ a {
   font-size: 12px;
 }
 
+/* 다크 테마에서는 공통 색상 변수를 어두운 배경에 맞게 변경 */
 [data-theme="dark"] {
   --bg: #020617;
   --sidebar: #0F172A;
@@ -149,6 +166,7 @@ a {
   --border: #334155;
 }
 
+/* 다크 테마에서 마우스를 올린 메뉴의 배경과 글자 강조 */
 [data-theme="dark"] .sidebar-link:hover {
   background: #1E293B;
   color: #10B981;
@@ -160,29 +178,35 @@ a {
   color: var(--primary);
 }
 
+/* 다크 테마에서 프로필 수정 버튼의 배경과 글자색 변경 */
 [data-theme="dark"] .outline-button {
   background: var(--card);
   color: var(--text);
   border: 1px solid var(--border);
 }
 
+/* 다크 테마의 카테고리 추가 버튼에 강조색 적용 */
 [data-theme="dark"] .soft-button {
   background: var(--primary);
 }
 
+/* 다크 테마의 아이콘 버튼을 기본 글자색으로 표시 */
 [data-theme="dark"] .icon-button {
   color: var(--text);
 }
 
+/* 다크 테마의 삭제 버튼을 붉은색으로 구분 */
 [data-theme="dark"] .icon-button.delete {
   color: #FB7185;
 }
 
+/* 어두운 배경에서도 아이콘이 보이도록 밝게 변환 */
 [data-theme="dark"] .sidebar-icon {
   filter: brightness(0) invert(1);
   opacity: 0.75;
 }
 
+/* 다크 테마 미리보기의 배경색 지정 */
 [data-theme="dark"] .theme-preview.dark {
   background: #0F172A;
 }

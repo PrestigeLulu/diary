@@ -18,17 +18,20 @@ body {
   margin-bottom: 32px;
 }
 
+/* 일정 페이지 제목의 글자 크기와 아래 여백 지정 */
 .scheduleTitle h1 {
   font-size: 32px;
   font-weight: 700;
   margin-bottom: 8px;
 }
 
+/* 제목 아래 설명 문구를 보조 글자색으로 표시 */
 .scheduleTitle p {
   font-size: 15px;
   color: var(--text-muted);
 }
 
+/* 일정 추가 버튼의 아이콘과 문구를 가로로 배치 */
 .scheduleAdd {
   display: flex;
   align-items: center;
@@ -52,6 +55,7 @@ body {
   margin-bottom: 24px;
 }
 
+/* 필터 선택 상자의 모양을 지정하고 드롭다운 위치의 기준으로 사용 */
 .filterBox {
   display: flex;
   align-items: center;
@@ -67,6 +71,7 @@ body {
   user-select: none;
 }
 
+/* 테두리를 회전시켜 아래쪽 화살표 모양 생성 */
 .filterArrow {
   width: 7px;
   height: 7px;
@@ -83,6 +88,7 @@ body {
   margin-bottom: -3px;
 }
 
+/* 필터 목록을 상자 아래에 겹쳐 표시하고 기본 상태에서는 숨김 */
 .filterList {
   display: none;
   position: absolute;
@@ -101,10 +107,12 @@ body {
   z-index: 10;
 }
 
+/* 필터에 open 클래스가 있으면 선택 목록 표시 */
 .filterBox.open .filterList {
   display: block;
 }
 
+/* 필터 선택 항목에 여백을 넣고 줄바꿈 방지 */
 .filterList li {
   padding: 9px 12px;
   border-radius: 8px;
@@ -113,18 +121,22 @@ body {
   color: var(--text);
 }
 
+/* 마우스를 올린 필터 항목의 배경 강조 */
 .filterList li:hover {
   background: var(--primary-light);
 }
 
+/* 현재 선택한 필터 항목의 글자를 굵게 표시 */
 .filterList li.selected {
   font-weight: 700;
 }
 
+/* 필터 이름을 보조 글자색으로 표시 */
 .filterLabel {
   color: var(--text-muted);
 }
 
+/* 선택한 필터 값을 굵게 표시 */
 .filterValue {
   font-weight: 700;
 }
@@ -147,6 +159,7 @@ body {
   overflow: hidden;
 }
 
+/* 목록 제목과 정렬 기준을 양끝에 배치하고 배경으로 구분 */
 .scheduleListHead {
   display: flex;
   justify-content: space-between;  /* 왼쪽 / 오른쪽 양끝 배치 */
@@ -159,6 +172,7 @@ body {
   border-bottom: 1px solid var(--border);
 }
 
+/* 정렬 기준 문구를 작은 글자로 표시 */
 .scheduleListSort {
   font-size: 12px;
   font-weight: 400;
@@ -173,10 +187,12 @@ body {
   border-bottom: 1px solid var(--border);
 }
 
+/* 마지막 일정 행의 아래 구분선 제거 */
 .scheduleListBox:last-child {
   border-bottom: none;
 }
 
+/* 날짜와 시간 정보 안의 글자를 세로로 가운데 정렬 */
 .dateBox,
 .timeBox {
   display: flex;
@@ -186,24 +202,29 @@ body {
   flex: 0 0 auto;
 }
 
+/* 일정마다 날짜 영역의 너비를 동일하게 유지 */
 .dateBox {
   width: 90px;
 }
 
+/* 날짜의 일 숫자를 크게 표시 */
 .dateBox strong {
   font-size: 24px;
 }
 
+/* 일정 시간을 굵은 글자로 표시 */
 .timeBox strong {
   font-size: 16px;
 }
 
+/* 날짜와 시간의 보조 설명을 작고 흐리게 표시 */
 .dateBox span,
 .timeBox span {
   font-size: 12px;
   color: var(--text-muted);
 }
 
+/* 날짜와 시간 사이에 세로 구분선 표시 */
 .line {
   flex: 0 0 auto;
   width: 1px;
@@ -219,6 +240,7 @@ body {
   border-radius: 50%;
 }
 
+/* green 클래스가 붙은 카테고리 점의 기본 색상 지정 */
 .category-dot.green {
   background-color: #6f9a78;
 }
@@ -229,17 +251,20 @@ body {
   min-width: 0;
 }
 
+/* 일정 제목의 글자 크기와 아래 여백 지정 */
 .scheduleInfo h2 {
   margin-bottom: 6px;
   font-size: 18px;
   font-weight: 700;
 }
 
+/* 일정 카테고리 문구를 보조 글자색으로 표시 */
 .scheduleInfo p {
   font-size: 14px;
   color: var(--text-muted);
 }
 
+/* 수정과 삭제 버튼의 기본 테두리와 배경 제거 */
 .icon-button {
   margin-left: 8px;
   border: none;
@@ -248,6 +273,7 @@ body {
   font-size: 18px;
 }
 
+/* 삭제 버튼을 붉은색으로 구분 */
 .icon-button.delete {
   color: #b46a67;
 }
@@ -263,19 +289,23 @@ body {
 /* :root[data-theme="dark"] { ... 변수들 } ← 이 블록 전체 삭제 */
 
 /* 아래 보정 규칙만 남김 */
+/* 다크 테마에서 마우스나 키보드로 선택한 사이드바 메뉴 강조 */
 [data-theme="dark"] .sidebar-link:hover,
 [data-theme="dark"] .sidebar-link:focus-visible {
   background: rgba(255, 255, 255, 0.08);
 }
 
+/* 다크 테마에서 일정 목록 제목의 배경색 변경 */
 [data-theme="dark"] .scheduleListHead {
   background-color: #162032;
 }
 
+/* 다크 테마에서 일정 카드의 그림자를 진하게 변경 */
 [data-theme="dark"] .scheduleList {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
 }
 
+/* 다크 테마에서 아이콘 버튼에 마우스를 올리면 투명도 변경 */
 [data-theme="dark"] .icon-button:hover {
   opacity: 0.7;
 }

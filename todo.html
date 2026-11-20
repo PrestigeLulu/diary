@@ -1,23 +1,26 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>다이어리 - 할 일</title>
+  <!-- 공통 css와 할일 css 불러오기 -->
   <link rel="stylesheet" href="./css/common.css">
   <link rel="stylesheet" href="./css/todo.css">
 </head>
 <body>
+  <!-- 전체 레이아웃 담당 -->
   <div class="app-layout">
+    <!-- 왼쪽에 사이드바 -->
     <aside class="sidebar">
+      <!-- 로고를 누르면 index.html로 이동 -->
       <a class="sidebar-brand" href="./index.html">
         <span class="brand-icon">
           <img src="./assets/images/book-open.svg" alt="">
         </span>
         <span class="brand-name">다이어리</span>
       </a>
-
+      <!-- 사이드바에 있는 메뉴버튼들 대응되는 페이지로 이동 -->
       <nav class="sidebar-nav">
         <a class="sidebar-link" href="./index.html">
           <img class="sidebar-icon" src="./assets/images/calendar.svg" alt="">
@@ -37,6 +40,7 @@
         </a>
       </nav>
 
+      <!-- 사이드바 하단에 나의 프로필 표시 -->
       <div class="sidebar-profile">
         <span class="profile-avatar"></span>
         <div>
@@ -45,19 +49,22 @@
         </div>
       </div>
     </aside>
-
+    <!-- 오른쪽에 나오는 본문 영역 -->
     <main class="todo-page">
+      <!-- 본문영역중 상단을 차지하는 타이틀 영역 -->
       <header class="todo-header">
         <div>
           <h1>나의 체크리스트</h1>
           <p>작은 계획을 하나씩 완료하며 오늘을 가볍게 정리해요.</p>
         </div>
+        <!-- 할일을 추가해주는 버튼 -->
         <button class="add-button" id="add-todo" type="button">
           ＋ 새 할 일
         </button>
       </header>
-
+      <!-- 할일 목록의 갯수 표시와 필터링을 하는 버튼들 -->
       <div class="todo-stats">
+        <!-- 클릭시 filterView 함수를 실행 -->
         <div class="stat is-active" onclick="filterView('all', this)">
           <span>전체</span>
           <strong id="total-count">0</strong>
@@ -75,19 +82,23 @@
 
         <p id="today-count">오늘 0개 완료</p>
       </div>
-
+      <!-- 해야할 일 영역구분 -->
       <section class="todo-section">
+        <!-- 영억 이름과 갯수 표시 -->
         <h2>해야 할 일 <span id="active-title-count">0</span></h2>
+        <!-- 자바스크립트로 할일을 추가할 영역 -->
         <ul class="todo-list" id="active-list"></ul>
       </section>
-
+      <!-- 완료한 일 영역구분 -->
       <section class="todo-section">
+        <!-- 영역 이름 표시 -->
         <h2>완료한 일</h2>
+        <!-- 자바스크립트로 한일을 추가할 영역 -->
         <ul class="todo-list" id="completed-list"></ul>
       </section>
     </main>
   </div>
-
+  <!-- 공용js 저장js 할일js를 불러오기 -->
   <script src="./js/main.js"></script>
   <script src="./js/storage.js"></script>
   <script src="./js/todo.js"></script>

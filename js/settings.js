@@ -1,14 +1,16 @@
-
+// 카테고리를 반환하는 함수, 처음이면 개인, 업무, 약속을 반환
 const getCategories = () => JSON.parse(localStorage.getItem("categories")) || [
   { id: "personal", name: "개인", color: "#7f9d87" },
   { id: "work", name: "업무", color: "#b96e4f" },
   { id: "appointment", name: "약속", color: "#78649b" }
 ];
 
+// 카테고리를 문자열화 해 저장하는 함수
 const saveCategories = data => localStorage.setItem("categories", JSON.stringify(data));
+// 저장돼 있는 일정 목록을 파싱해서 반환하는 함수
 const getSchedules = () => JSON.parse(localStorage.getItem("schedules")) || [];
 
-// 프로필 표시
+// 설정 내 프로필에 정보를 넣어주는 함수
 function renderProfile() {
   document.getElementById("profile-title").textContent = getName();
   document.getElementById("profile-stuid").textContent = getStudentId();
@@ -16,31 +18,34 @@ function renderProfile() {
   document.getElementById("profile-avatar").textContent = getName().slice(0, 2);
 }
 
-// 프로필 수정
+// 프로필 수정 함수
 function editProfile() {
+  // 입력 기본값을 내 원래 이름으로 받고 공백이면 함수 종료
   const name = prompt("이름을 입력하세요.", getName());
   if (!name?.trim()) return;
-
+  // 입력 기본값을 내 원래 학번으로 받고 안입력하면 함수 종료
   const stuid = prompt("학번을 입력하세요.", getStudentId());
   if (stuid === null) return;
-
+  // 받아온 값을 로컬스토리지에 저장
   localStorage.setItem("name", name.trim());
   localStorage.setItem("stuid", stuid.trim());
-
+  // 사이드바와 설정 프로필을 다시 랜더링
   renderProfile();
   updateProfile();
 }
 
-// 카테고리 목록
+// 카테고리 목록을 카데고리 리스트에 html
 function renderCategories() {
+  // 들어갈 요소를 불러와서 초기화
   const list = document.getElementById("category-list");
   list.innerHTML = "";
-
+  // 나의 카테고리를 반복 순회
   getCategories().forEach(c => {
+    // 일정에서 이 카테고리를 쓰고있는 갯수 구하기
     const count = getSchedules().filter(s =>
       s.categoryId === c.id || s.category === c.id || s.category === c.name
     ).length;
-
+    // 일정 목록 하나 생성
     const li = document.createElement("li");
     li.innerHTML = `
       <span class="category-dot" style="background:${c.color}"></span>
@@ -49,7 +54,7 @@ function renderCategories() {
       <button class="icon-button edit" type="button">✎</button>
       <button class="icon-button delete" type="button">×</button>
     `;
-
+    // 정보 변경 및 수정, 삭제 이벤트 함수 연동
     li.querySelector("strong").textContent = c.name;
     li.querySelector(".edit").onclick = () => editCategory(c.id);
     li.querySelector(".delete").onclick = () => deleteCategory(c.id);

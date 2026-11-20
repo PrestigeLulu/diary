@@ -4,19 +4,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>다이어리 - 설정</title>
+  <!-- 공용 css와 설정 css 불러오기 -->
   <link rel="stylesheet" href="./css/common.css">
   <link rel="stylesheet" href="./css/settings.css">
 </head>
 <body>
+  <!-- 전체 레이아웃 담당 -->
   <div class="app-layout">
-    <!-- 사이드바 -->
+    <!-- 왼쪽에 사이드바 -->
     <aside class="sidebar">
+      <!-- 로고를 누르면 index.html로 이동 -->
       <a class="sidebar-brand" href="./index.html">
         <span class="brand-icon">
           <img src="./assets/images/book-open.svg" alt="">
         </span>
         <span class="brand-name">다이어리</span>
       </a>
+      <!-- 사이드바에 있는 메뉴버튼들 대응되는 페이지로 이동 -->
       <nav class="sidebar-nav">
         <a class="sidebar-link" href="./index.html">
           <img class="sidebar-icon" src="./assets/images/calendar.svg" alt="">
@@ -35,6 +39,7 @@
           <span>설정</span>
         </a>
       </nav>
+      <!-- 사이드바 하단에 나의 프로필 표시 -->
       <div class="sidebar-profile">
         <span class="profile-avatar"></span>
         <div>
@@ -43,15 +48,17 @@
         </div>
       </div>
     </aside>
-    <!-- 설정 페이지 -->
+    <!-- 본문 설정 페이지 -->
     <main class="settings-page">
+      <!-- 본문영역중 상단을 차지하는 타이틀 영역 -->
       <header class="page-header">
         <h1>마이페이지 / 설정</h1>
         <p>나만의 다이어리 환경을 편안하게 설정해 보세요.</p>
       </header>
+      <!-- 오른쪽과 왼쫄을 나누기 위한 그리드 -->
       <div class="settings-grid">
         <div class="settings-left">
-          <!-- 프로필 -->
+          <!-- 내 프로필 -->
           <section class="card profile-card">
             <div class="profile-large" id="profile-avatar">AB</div>
             <div class="profile-info">
@@ -59,7 +66,7 @@
               <p id="profile-stuid"></p>
               <span id="created-at"></span>
             </div>
-            <!-- 자바스크립트 edit Profile() 실행 -->
+            <!-- 자바스크립트 프로필수정 함수 실행 -->
             <button class="outline-button" onclick="editProfile()" id="edit-profile" type="button">
               <span>✎</span> 프로필 수정
             </button>
@@ -104,6 +111,7 @@
     </main>
   </div>
   <script src="./js/main.js"></script>
+  <script src="./js/storage.js"></script>
   <script src="./js/settings.js"></script>
 </body>
 </html>

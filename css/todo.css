@@ -1,3 +1,4 @@
+/* 할 일 페이지가 사이드바를 제외한 공간을 차지하고 본문 여백 지정 */
 .todo-page {
   flex: 1;
   padding: 40px 48px;
@@ -5,6 +6,7 @@
   color: var(--text);
 }
 
+/* 체크리스트 제목과 새 할 일 버튼을 양끝에 배치 */
 .todo-header {
   display: flex;
   justify-content: space-between;
@@ -12,17 +14,20 @@
   margin-bottom: 22px;
 }
 
+/* 체크리스트 제목의 글자 크기와 굵기 지정 */
 .todo-header h1 {
   font-size: 32px;
   font-weight: 700;
   margin-bottom: 8px;
 }
 
+/* 제목 아래 설명 문구의 글자색과 크기 지정 */
 .todo-header p {
   color: var(--text-muted);
   font-size: 14px;
 }
 
+/* 새 할 일 버튼에 강조색과 둥근 모서리 적용 */
 .add-button {
   background: var(--primary);
   color: white;
@@ -32,10 +37,12 @@
   cursor: pointer;
 }
 
+/* 새 할 일 버튼에 마우스를 올리면 투명도 변경 */
 .add-button:hover {
   opacity: 0.85;
 }
 
+/* 전체, 미완료, 완료 필터와 오늘 완료 개수를 가로로 배치 */
 .todo-stats {
   display: flex;
   align-items: center;
@@ -43,6 +50,7 @@
   margin-bottom: 28px;
 }
 
+/* 할 일 개수와 필터 이름을 나란히 표시하고 클릭 모양 적용 */
 .stat {
   display: flex;
   cursor: pointer;
@@ -54,6 +62,7 @@
   color: var(--text-muted);
 }
 
+/* 목록이 비어 있을 때 안내 문구를 가운데 표시 */
 .empty-message {
   padding: 20px;
   text-align: center;
@@ -61,35 +70,42 @@
   list-style: none;
 }
 
+/* 전체 필터의 왼쪽 모서리를 둥글게 하고 배경과 글자색 지정 */
 .stat:first-child {
   background: var(--card);
   border-radius: 10px 0 0 10px;
   color: var(--text);
 }
 
+/* 완료 필터의 오른쪽 모서리를 둥글게 처리 */
 .stat:nth-child(3) {
   border-radius: 0 10px 10px 0;
 } 
 
+/* 각 필터에 표시되는 할 일 개수의 글자 크기 지정 */
 .stat strong {
   font-size: 13px;
 }
 
+/* 오늘 완료한 할 일 개수를 오른쪽 끝에 표시 */
 #today-count {
   margin-left: auto;
   color: var(--text-muted);
   font-size: 13px;
 }
 
+/* 해야 할 일과 완료한 일 영역 사이에 여백 추가 */
 .todo-section {
   margin-bottom: 28px;
 }
 
+/* 각 목록 제목의 글자 크기와 아래 여백 지정 */
 .todo-section h2 {
   font-size: 18px;
   margin-bottom: 14px;
 }
 
+/* 해야 할 일 제목 옆에 개수를 둥근 배지로 표시 */
 #active-title-count {
   display: inline-block;
   background: var(--primary-light);
@@ -99,6 +115,7 @@
   font-size: 13px;
 }
 
+/* 목록의 기본 점을 없애고 카드 배경과 테두리 적용 */
 .todo-list {
   list-style: none;
   margin: 0;
@@ -108,6 +125,7 @@
   border-radius: 16px;
 }
 
+/* 체크박스와 내용, 중요도, 수정과 삭제 버튼을 가로로 배치 */
 .todo-item {
   display: flex;
   align-items: center;
@@ -116,6 +134,7 @@
   padding: 12px 0;
 }
 
+/* 기본 체크박스 모양 대신 원형 테두리로 표시 */
 .todo-item input[type="checkbox"] {
   appearance: none;
   width: 21px;
@@ -126,11 +145,13 @@
   flex-shrink: 0;
 }
 
+/* 완료 체크박스를 강조색으로 채움 */
 .todo-item input[type="checkbox"]:checked {
   background: var(--primary);
   border-color: var(--primary);
 }
 
+/* 완료 체크박스 안에 흰색 체크 표시 추가 */
 .todo-item input[type="checkbox"]:checked::after {
   content: "✓";
   display: block;
@@ -139,57 +160,68 @@
   font-size: 14px;
 }
 
+/* 할 일 내용이 나머지 공간을 차지하도록 설정 */
 .todo-info {
   flex: 1;
 }
 
+/* 할 일 제목을 한 줄 영역으로 표시하고 아래 여백 추가 */
 .todo-info strong {
   display: block;
   font-size: 14px;
   margin-bottom: 5px;
 }
 
+/* 할 일 설명을 작은 글자와 보조 색상으로 표시 */
 .todo-info p {
   color: var(--text-muted);
   font-size: 12px;
 }
 
+/* 날짜 문구가 있을 때 보조 색상과 오른쪽 여백 적용 */
 .todo-date {
   color: var(--text-muted);
   font-size: 12px;
   margin-right: 18px;
 }
 
+/* 우선순위를 둥근 배지 모양으로 표시 */
 .priority {
   padding: 5px 12px;
   border-radius: 20px;
   font-size: 12px;
 }
 
+/* 높음 우선순위를 붉은 계열의 색상으로 구분 */
 .priority.high {
   background: #FCE7DF;
   color: #B45D43;
 }
 
+/* 보통 우선순위를 초록 계열의 색상으로 구분 */
 .priority.medium {
   background: #E1EDE3;
   color: #547B5D;
 }
 
+/* 낮음 우선순위를 보라 계열의 색상으로 구분 */
 .priority.low {
   background: #EEE7F6;
   color: #80649B;
 }
 
+/* 완료한 할 일의 내용을 흐리게 하고 취소선 표시 */
 .todo-item.completed .todo-info {
   opacity: 0.5;
   text-decoration: line-through;
 }
 
+/* 완료한 할 일의 날짜 문구를 흐리게 표시 */
 .todo-item.completed .todo-date {
   opacity: 0.6;
 }
 
+/* 할 일 수정과 삭제 버튼의 기본 테두리와 배경 제거 */
 .todo-edit,
 .todo-delete {
   border: none;
@@ -200,19 +232,23 @@
   padding: 5px;
 }
 
+/* 수정 버튼에 마우스를 올리면 강조색으로 표시 */
 .todo-edit:hover {
   color: var(--primary);
 }
 
+/* 삭제 버튼에 마우스를 올리면 붉은색으로 표시 */
 .todo-delete:hover {
   color: #b46a67;
 }
 
+/* 긴 내용이 있어도 내용 영역이 줄어들 수 있도록 최소 너비 지정 */
 .todo-item .todo-info {
   flex: 1;
   min-width: 0;
 }
 
+/* 완료한 할 일 제목에 취소선과 보조 글자색 적용 */
 .todo-item.completed .todo-info strong {
   text-decoration: line-through;
   color: var(--text-muted);

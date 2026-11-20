@@ -4,20 +4,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Diary - Schedule</title>
+  <!-- 공통 css와 일정 css 불러오기 -->
   <link rel="stylesheet" href="./css/common.css">
   <link rel="stylesheet" href="./css/schedule.css">
   <script src="./js/theme.js"></script>
 </head>
 <body>
+  <!-- 전체 레이아웃 담당 -->
   <div class="app-layout"; style="position: absolute;">
       <!-- 왼쪽 사이드바 전체 영역 좌측 고정 -->
       <aside class="sidebar">
+      <!-- 로고를 누르면 index.html로 이동 -->
       <a class="sidebar-brand" href="./index.html">
         <span class="brand-icon">
           <img src="./assets/images/book-open.svg" alt="">
         </span>
         <span class="brand-name">다이어리</span>
       </a>
+      <!-- 사이드바 메뉴를 누르면 대응되는 페이지로 이동 -->
       <nav class="sidebar-nav">
         <a class="sidebar-link" href="./index.html">
           <img class="sidebar-icon" src="./assets/images/calendar.svg" alt="">
@@ -36,6 +40,7 @@
           <span>설정</span>
         </a>
       </nav>
+      <!-- 사이드바 하단에 나의 이름과 학번 표시 -->
       <div class="sidebar-profile">
         <span class="profile-avatar"></span>
         <div>
@@ -66,6 +71,7 @@
 
     <!-- 필터 -->
     <div class="scheduleFilters">
+      <!-- 등록된 일정의 연도와 월로 목록을 걸러주는 필터 -->
       <div class="filterBox" id="dateFilter">
         <img class="sidebar-icon" src="./assets/images/calendar.svg" alt="" />
         <span class="filterLabel">날짜</span>
@@ -74,6 +80,7 @@
         <ul class="filterList"></ul>
       </div>
 
+      <!-- 설정에서 저장한 카테고리로 목록을 걸러주는 필터 -->
       <div class="filterBox" id="categoryFilter">
         <img class="sidebar-icon" src="./assets/images/tag.svg" alt="" />
         <span class="filterLabel">카테고리</span>
@@ -82,11 +89,13 @@
         <ul class="filterList"></ul>
       </div>
 
+      <!-- 현재 필터 조건에 맞는 일정 개수를 표시 -->
       <span class="scheduleCount">총 0개의 일정</span>
     </div>
 
     <!-- 일정 카드 -->
     <div class="scheduleList">
+      <!-- 일정 목록의 제목과 정렬 기준 표시 -->
       <div class="scheduleListHead">
         <span>일정</span>
         <span class="scheduleListSort">날짜순</span>
@@ -99,6 +108,7 @@
   </div>
 
   <!-- 순서 중요 -->
+  <!-- 일정 저장 함수를 먼저 불러오고 화면에 필요한 js 실행 -->
   <script src="./js/storage.js"></script>
   <script src="./js/schedule.js"></script>
   <script src="./js/main.js"></script>
